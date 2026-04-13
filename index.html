@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RxLuxury — Nouvelle Arrivée</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0d0d0d;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .flyer {
+    background: #0a0a0a;
+    color: #fff;
+    width: 100%;
+    max-width: 680px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 0.5px solid #222;
+  }
+  .gold-line { height: 2px; background: linear-gradient(90deg, #8a6a2e, #c8a96e, #e8c98e, #c8a96e, #8a6a2e); }
+  .header { padding: 32px 32px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid #222; }
+  .brand-rx { font-size: 36px; font-weight: 900; letter-spacing: -1px; color: #fff; line-height: 1; }
+  .brand-luxury { font-size: 13px; font-weight: 300; letter-spacing: 6px; color: #888; text-transform: uppercase; margin-top: 2px; }
+  .badge { background: #c8a96e; color: #0a0a0a; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; }
+  .tagline { padding: 16px 32px; font-size: 12px; letter-spacing: 3px; color: #555; text-transform: uppercase; border-bottom: 0.5px solid #1a1a1a; }
+  .section-title { padding: 20px 32px 12px; font-size: 10px; letter-spacing: 4px; color: #c8a96e; text-transform: uppercase; }
+  .divider { height: 1px; background: #1a1a1a; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #1a1a1a; margin-bottom: 1px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #1a1a1a; }
+
+  .card { background: #111; padding: 20px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: background 0.2s; position: relative; }
+  .card:hover { background: #161616; }
+  .card:hover .card-hint { opacity: 1; }
+  .card-brand { font-size: 9px; letter-spacing: 3px; color: #c8a96e; text-transform: uppercase; }
+  .card-name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.2; }
+  .card-detail { font-size: 11px; color: #555; }
+  .card-pill { display: inline-block; background: #1e1e1e; border: 0.5px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 10px; color: #888; width: fit-content; }
+  .color-dots { display: flex; gap: 4px; margin-top: 2px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; border: 0.5px solid #333; }
+  .card-hint { position: absolute; bottom: 12px; right: 14px; font-size: 9px; letter-spacing: 2px; color: #c8a96e88; text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
+
+  .card-full { background: #111; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: background 0.2s; position: relative; border-top: 0.5px solid #1a1a1a; }
+  .card-full:hover { background: #161616; }
+  .card-full:hover .card-hint { opacity: 1; }
+  .card-full-title { font-size: 13px; font-weight: 700; color: #fff; }
+  .card-full-sub { font-size: 10px; color: #444; margin-top: 3px; letter-spacing: 0.5px; }
+  .brands-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .brand-pill { background: #1a1a1a; border: 0.5px solid #2a2a2a; border-radius: 20px; padding: 5px 14px; font-size: 10px; color: #888; letter-spacing: 1px; }
+
+  .highlight-bar { background: #c8a96e; color: #0a0a0a; text-align: center; padding: 10px; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+  .footer { padding: 24px 32px; border-top: 0.5px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+  .footer-handle { font-size: 15px; font-weight: 700; color: #fff; }
+  .footer-sub { font-size: 10px; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+  .footer-cta { font-size: 11px; color: #c8a96e; letter-spacing: 1px; }
+
+  /* ── MODAL ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 1000; overflow-y: auto; padding: 30px 20px 60px; }
+  .modal-overlay.open { display: block; }
+  .modal { background: #0f0f0f; border: 0.5px solid #2a2a2a; border-radius: 12px; max-width: 780px; margin: 0 auto; overflow: hidden; }
+
+  .modal-header { padding: 20px 24px 16px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 0.5px solid #1e1e1e; }
+  .modal-brand { font-size: 9px; letter-spacing: 3px; color: #c8a96e; text-transform: uppercase; margin-bottom: 4px; }
+  .modal-name { font-size: 20px; font-weight: 700; color: #fff; }
+  .modal-detail { font-size: 12px; color: #555; margin-top: 4px; }
+  .modal-close { background: #1a1a1a; border: 0.5px solid #333; color: #aaa; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; white-space: nowrap; margin-left: 16px; flex-shrink: 0; }
+  .modal-close:hover { background: #c8a96e; color: #0a0a0a; border-color: #c8a96e; }
+
+  /* Main photo */
+  .modal-main-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #141414; }
+
+  /* No photos state */
+  .modal-empty { width: 100%; aspect-ratio: 4/3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #141414; }
+  .modal-empty-icon { font-size: 32px; opacity: 0.15; }
+  .modal-empty-text { font-size: 11px; color: #333; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Thumbnails */
+  .modal-thumbs-wrap { border-top: 0.5px solid #1e1e1e; background: #0a0a0a; padding: 8px; overflow-x: auto; }
+  .modal-thumbs { display: flex; gap: 6px; align-items: center; min-height: 72px; }
+  .thumb { flex-shrink: 0; width: 64px; height: 64px; background: #141414; border-radius: 4px; overflow: hidden; position: relative; cursor: pointer; border: 1.5px solid transparent; transition: border-color 0.2s; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.65; transition: opacity 0.2s, transform 0.2s; }
+  .thumb:hover img { opacity: 1; transform: scale(1.06); }
+  .thumb.active { border-color: #c8a96e; }
+  .thumb.active img { opacity: 1; }
+  .photo-counter { font-size: 9px; color: #444; letter-spacing: 1px; padding: 0 4px; white-space: nowrap; flex-shrink: 0; }
+
+  .modal-info { padding: 14px 24px; display: flex; gap: 8px; flex-wrap: wrap; border-top: 0.5px solid #1e1e1e; }
+  .info-tag { background: #1a1a1a; border: 0.5px solid #2a2a2a; border-radius: 20px; padding: 4px 12px; font-size: 10px; color: #666; letter-spacing: 1px; }
+
+  /* Contact bar */
+  .contact-bar { padding: 14px 24px; border-top: 0.5px solid #1e1e1e; display: flex; justify-content: center; }
+  .contact-btn { background: #c8a96e; color: #0a0a0a; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 10px 28px; border-radius: 20px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s; }
+  .contact-btn:hover { opacity: 0.85; }
+
+  /* Apparel tabs */
+  .brand-tabs { display: flex; gap: 1px; background: #1a1a1a; border-bottom: 0.5px solid #1e1e1e; }
+  .brand-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #444; background: #111; cursor: pointer; transition: background 0.2s, color 0.2s; border: none; font-family: 'Inter', sans-serif; }
+  .brand-tab:hover { color: #aaa; background: #161616; }
+  .brand-tab.active { color: #c8a96e; background: #0f0f0f; border-bottom: 2px solid #c8a96e; }
+
+  /* Arrow nav on main image */
+  .main-img-wrap { position: relative; }
+  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: 0.5px solid #333; color: #aaa; font-size: 18px; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; z-index: 2; }
+  .nav-btn:hover { background: #c8a96e; color: #0a0a0a; border-color: #c8a96e; }
+  .nav-prev { left: 12px; }
+  .nav-next { right: 12px; }
+  .nav-btn.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ FLYER ══════════ -->
+<div class="flyer">
+  <div class="gold-line"></div>
+  <div class="header">
+    <div>
+      <div class="brand-rx">RxLuxury</div>
+      <div class="brand-luxury">Streetwear · Baskets · Accessoires</div>
+    </div>
+    <div class="badge">Nouvelle Arrivée</div>
+  </div>
+  <div class="tagline">Pièces sélectionnées — Qualité premium</div>
+
+  <div class="section-title">Baskets</div>
+  <div class="grid-2">
+    <div class="card" onclick="openGallery('omni9')">
+      <span class="card-brand">Saucony Originals</span>
+      <span class="card-name">Pro Grid Omni 9</span>
+      <span class="card-detail">Rose / Violet</span>
+      <span class="card-pill">Pointure US 11.5 H — 13 F</span>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('gelnyc')">
+      <span class="card-brand">Asics</span>
+      <span class="card-name">Gel NYC</span>
+      <span class="card-detail">Plusieurs coloris</span>
+      <span class="card-pill">Pointures disponibles</span>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('cloudtilt')">
+      <span class="card-brand">On Running</span>
+      <span class="card-name">Cloudtilt</span>
+      <span class="card-detail">Noir / Ivoire</span>
+      <span class="card-pill">Pointure US 8 H — Semelle CloudTec</span>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('kayano')">
+      <span class="card-brand">Asics</span>
+      <span class="card-name">Gel-Kayano 14</span>
+      <span class="card-detail">Argent / Blanc / Rose</span>
+      <span class="card-pill">Pointure US 8 — 9.5 F</span>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title">Accessoires</div>
+  <div class="grid-3">
+    <div class="card" onclick="openGallery('goyard1')">
+      <span class="card-brand">Goyard</span>
+      <span class="card-name">Sac Messager</span>
+      <span class="card-detail">Noir — Motif Chevron</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#1a1a1a;"></div>
+        <div class="dot" style="background:#8b7355;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('belvedere')">
+      <span class="card-brand">Goyard</span>
+      <span class="card-name">Sac Belvédère</span>
+      <span class="card-detail">Plusieurs coloris</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#aaa;"></div>
+        <div class="dot" style="background:#c8a96e;"></div>
+        <div class="dot" style="background:#1a1a1a;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('casquette')">
+      <span class="card-brand">Casquettes</span>
+      <span class="card-name">Collection Caps</span>
+      <span class="card-detail">Plusieurs modèles disponibles</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#8ab0d4;"></div>
+        <div class="dot" style="background:#e8a0b0;"></div>
+        <div class="dot" style="background:#333;"></div>
+        <div class="dot" style="background:#c8a96e;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title">Vêtements</div>
+  <div class="card-full" onclick="openGallery('vetements')">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="card-full-title">Collection Vêtements</div>
+        <div class="card-full-sub">T-shirts, sweats &amp; plus — cliquez pour voir toutes les pièces</div>
+      </div>
+      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos →</span>
+    </div>
+    <div class="brands-row">
+      <span class="brand-pill">C.P. Company</span>
+      <span class="brand-pill">Stone Island</span>
+      <span class="brand-pill">Burberry</span>
+    </div>
+  </div>
+
+  <div class="highlight-bar">Disponibilités limitées — Contactez-nous</div>
+  <div class="footer">
+    <div>
+      <div class="footer-handle">@RxLuxury</div>
+      <div class="footer-sub">Message privé pour infos &amp; prix</div>
+    </div>
+    <div class="footer-cta">✦ Stock limité ✦</div>
+  </div>
+  <div class="gold-line"></div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+<div id="modals-container"></div>
+
+<script>
+// ── Catalogue de photos — REMPLIR ICI ──
+// Pour chaque article, ajoute les URLs de tes photos entre les crochets.
+// Exemple : photos['omni9'] = ['https://...jpg', 'https://...jpg'];
+// (Après upload sur GitHub, les URLs seront du type : https://TON-USER.github.io/rxluxury/photos/omni9-1.jpg)
+
+const photos = {
+  omni9:     [],
+  gelnyc:    [],
+  cloudtilt: [],
+  kayano:    [],
+  goyard1:   [],
+  belvedere: [],
+  casquette: [],
+  vetements_cp:       [],
+  vetements_stone:    [],
+  vetements_burberry: [],
+};
+
+const ITEMS = {
+  omni9:     { brand:'Saucony Originals', name:'Pro Grid Omni 9',    detail:'Rose / Violet',         tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boîte incluse'] },
+  gelnyc:    { brand:'Asics',             name:'Gel NYC',             detail:'Plusieurs coloris',      tags:['Pointures disponibles','Neuf','Boîte incluse'] },
+  cloudtilt: { brand:'On Running',        name:'Cloudtilt',           detail:'Noir / Ivoire',          tags:['Pointure US 8 H','Semelle CloudTec','Neuf','Boîte incluse'] },
+  kayano:    { brand:'Asics',             name:'Gel-Kayano 14',       detail:'Argent / Blanc / Rose',  tags:['Pointure US 8 — 9.5 F','Neuf','Boîte incluse'] },
+  goyard1:   { brand:'Goyard',            name:'Sac Messager',        detail:'Noir — Motif Chevron',   tags:['Toile Goyardine','Cuir noir','Neuf'] },
+  belvedere: { brand:'Goyard',            name:'Sac Belvédère',       detail:'Plusieurs coloris',      tags:['Toile Goyardine','Neuf'] },
+  casquette: { brand:'Casquettes',        name:'Collection Caps',     detail:'Plusieurs modèles',      tags:['Taille unique','Neuf','Étiquettes incluses'] },
+  vetements: { brand:'Vêtements',         name:'Collection Vêtements',detail:'T-shirts, sweats & plus',tags:[], isApparel:true },
+};
+
+const APPAREL_BRANDS = [
+  { key:'cp',       label:'C.P. Company', detail:'T-shirt Graphique — 4 coloris',      tags:['Blanc','Gris','Kaki','Marine','Neuf'] },
+  { key:'stone',    label:'Stone Island', detail:'T-shirt Boussole — 3 coloris',        tags:['Beige','Vert clair','Noir','Neuf','Badge inclus'] },
+  { key:'burberry', label:'Burberry',     detail:'Sweat à Capuche Zippé — Noir / Gris', tags:['Doublure écossaise','Broderie Equestrian Knight','Neuf'] },
+];
+
+// ── current index per gallery ──
+const currentIdx = {};
+
+function buildModal(id) {
+  const item = ITEMS[id];
+  if (item.isApparel) return buildApparelModal();
+  const arr = photos[id] || [];
+  currentIdx[id] = 0;
+  return `
+    <div class="modal-overlay" id="overlay-${id}">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-brand">${item.brand}</div>
+            <div class="modal-name">${item.name}</div>
+            <div class="modal-detail">${item.detail}</div>
+          </div>
+          <button class="modal-close" onclick="closeGallery('${id}')">✕ Fermer</button>
+        </div>
+        ${buildMainZone(id, arr, 0)}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs">${buildThumbsHTML(id, arr, 0)}</div></div>` : ''}
+        <div class="modal-info">${item.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
+      </div>
+    </div>`;
+}
+
+function buildApparelModal() {
+  const activeBrandKey = window._activeApparelBrand || APPAREL_BRANDS[0].key;
+  const ab = APPAREL_BRANDS.find(b=>b.key===activeBrandKey) || APPAREL_BRANDS[0];
+  const arr = photos['vetements_'+activeBrandKey] || [];
+  currentIdx['vetements'] = 0;
+  const tabsHTML = APPAREL_BRANDS.map(b=>
+    `<button class="brand-tab ${b.key===activeBrandKey?'active':''}" onclick="switchApparelBrand('${b.key}')">${b.label}</button>`
+  ).join('');
+  return `
+    <div class="modal-overlay" id="overlay-vetements">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-brand">Vêtements</div>
+            <div class="modal-name" id="apparel-modal-name">${ab.label}</div>
+            <div class="modal-detail" id="apparel-modal-detail">${ab.detail}</div>
+          </div>
+          <button class="modal-close" onclick="closeGallery('vetements')">✕ Fermer</button>
+        </div>
+        <div class="brand-tabs">${tabsHTML}</div>
+        ${buildApparelMainZone(activeBrandKey, arr, 0)}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-vetements">${buildApparelThumbsHTML(activeBrandKey, arr, 0)}</div></div>` : '<div id="thumbs-vetements-wrap"></div>'}
+        <div class="modal-info" id="apparel-modal-info">${ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
+      </div>
+    </div>`;
+}
+
+function buildMainZone(id, arr, idx) {
+  if (!arr.length) return `<div class="modal-empty"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
+  const hasPrev = idx > 0;
+  const hasNext = idx < arr.length - 1;
+  return `<div class="main-img-wrap">
+    <img class="modal-main-img" id="main-${id}" src="${arr[idx]}" alt="Photo ${idx+1}"/>
+    <button class="nav-btn nav-prev ${hasPrev?'':'hidden'}" onclick="navPhoto('${id}',-1)">‹</button>
+    <button class="nav-btn nav-next ${hasNext?'':'hidden'}" onclick="navPhoto('${id}',1)">›</button>
+  </div>`;
+}
+
+function buildApparelMainZone(brandKey, arr, idx) {
+  if (!arr.length) return `<div class="modal-empty" id="apparel-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
+  const hasPrev = idx > 0;
+  const hasNext = idx < arr.length - 1;
+  return `<div class="main-img-wrap" id="apparel-main-wrap">
+    <img class="modal-main-img" id="main-vetements" src="${arr[idx]}" alt="Photo ${idx+1}"/>
+    <button class="nav-btn nav-prev ${hasPrev?'':'hidden'}" onclick="navApparelPhoto('${brandKey}',-1)">‹</button>
+    <button class="nav-btn nav-next ${hasNext?'':'hidden'}" onclick="navApparelPhoto('${brandKey}',1)">›</button>
+  </div>`;
+}
+
+function buildThumbsHTML(id, arr, activeIdx) {
+  let html = arr.map((src,i)=>`
+    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectPhoto('${id}',${i})">
+      <img src="${src}" alt="Photo ${i+1}"/>
+    </div>`).join('');
+  if (arr.length > 1) html += `<span class="photo-counter">${arr.length} photos</span>`;
+  return html;
+}
+
+function buildApparelThumbsHTML(brandKey, arr, activeIdx) {
+  let html = arr.map((src,i)=>`
+    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectApparelPhoto('${brandKey}',${i})">
+      <img src="${src}" alt="Photo ${i+1}"/>
+    </div>`).join('');
+  if (arr.length > 1) html += `<span class="photo-counter">${arr.length} photos</span>`;
+  return html;
+}
+
+function openGallery(id) {
+  if (id==='vetements') window._activeApparelBrand = APPAREL_BRANDS[0].key;
+  const ex = document.getElementById('overlay-'+id);
+  if (ex) ex.remove();
+  document.getElementById('modals-container').insertAdjacentHTML('beforeend', buildModal(id));
+  document.getElementById('overlay-'+id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGallery(id) {
+  const o = document.getElementById('overlay-'+id);
+  if (o) o.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectPhoto(id, idx) {
+  const arr = photos[id] || [];
+  if (idx < 0 || idx >= arr.length) return;
+  currentIdx[id] = idx;
+  const img = document.getElementById('main-'+id);
+  if (img) img.src = arr[idx];
+  document.querySelectorAll('#overlay-'+id+' .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  updateNavBtns(id, arr, idx);
+}
+
+function navPhoto(id, dir) {
+  const arr = photos[id] || [];
+  const newIdx = (currentIdx[id] || 0) + dir;
+  if (newIdx >= 0 && newIdx < arr.length) selectPhoto(id, newIdx);
+}
+
+function updateNavBtns(id, arr, idx) {
+  const overlay = document.getElementById('overlay-'+id);
+  if (!overlay) return;
+  const prev = overlay.querySelector('.nav-prev');
+  const next = overlay.querySelector('.nav-next');
+  if (prev) prev.classList.toggle('hidden', idx === 0);
+  if (next) next.classList.toggle('hidden', idx === arr.length - 1);
+}
+
+function selectApparelPhoto(brandKey, idx) {
+  const arr = photos['vetements_'+brandKey] || [];
+  if (idx < 0 || idx >= arr.length) return;
+  currentIdx['vetements'] = idx;
+  const img = document.getElementById('main-vetements');
+  if (img) img.src = arr[idx];
+  document.querySelectorAll('#overlay-vetements .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  updateApparelNavBtns(brandKey, arr, idx);
+}
+
+function navApparelPhoto(brandKey, dir) {
+  const arr = photos['vetements_'+brandKey] || [];
+  const newIdx = (currentIdx['vetements'] || 0) + dir;
+  if (newIdx >= 0 && newIdx < arr.length) selectApparelPhoto(brandKey, newIdx);
+}
+
+function updateApparelNavBtns(brandKey, arr, idx) {
+  const overlay = document.getElementById('overlay-vetements');
+  if (!overlay) return;
+  const prev = overlay.querySelector('.nav-prev');
+  const next = overlay.querySelector('.nav-next');
+  if (prev) prev.classList.toggle('hidden', idx === 0);
+  if (next) next.classList.toggle('hidden', idx === arr.length - 1);
+}
+
+function switchApparelBrand(brandKey) {
+  window._activeApparelBrand = brandKey;
+  const ab = APPAREL_BRANDS.find(b=>b.key===brandKey);
+  const arr = photos['vetements_'+brandKey] || [];
+  currentIdx['vetements'] = 0;
+
+  document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===ab.label));
+  const nm = document.getElementById('apparel-modal-name'); if(nm) nm.textContent = ab.label;
+  const dt = document.getElementById('apparel-modal-detail'); if(dt) dt.textContent = ab.detail;
+  const info = document.getElementById('apparel-modal-info');
+  if(info) info.innerHTML = ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
+
+  // Update main image zone
+  const mainWrap = document.getElementById('apparel-main-wrap');
+  if (mainWrap) mainWrap.outerHTML = buildApparelMainZone(brandKey, arr, 0);
+
+  // Update thumbs
+  const tw = document.getElementById('thumbs-vetements');
+  if (tw && arr.length > 1) tw.innerHTML = buildApparelThumbsHTML(brandKey, arr, 0);
+  else if (tw) tw.innerHTML = '';
+}
+
+function contactUs() {
+  window.open('https://instagram.com/RxLuxury', '_blank');
+}
+</script>
+</body>
+</html>
