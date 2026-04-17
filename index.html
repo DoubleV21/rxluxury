@@ -128,24 +128,15 @@
 
   <div class="section-title">Accessoires</div>
   <div class="grid-3">
-    <div class="card" onclick="openGallery('goyard1')">
+    <div class="card" onclick="openGallery('goyard')">
       <span class="card-brand">Goyard</span>
-      <span class="card-name">Sac Messager</span>
-      <span class="card-detail">Noir — Motif Chevron</span>
+      <span class="card-name">Sacs Goyard</span>
+      <span class="card-detail">Messager & Belvédère</span>
       <div class="color-dots">
         <div class="dot" style="background:#1a1a1a;"></div>
         <div class="dot" style="background:#8b7355;"></div>
-      </div>
-      <span class="card-hint">Voir photos →</span>
-    </div>
-    <div class="card" onclick="openGallery('belvedere')">
-      <span class="card-brand">Goyard</span>
-      <span class="card-name">Sac Belvédère</span>
-      <span class="card-detail">Plusieurs coloris</span>
-      <div class="color-dots">
         <div class="dot" style="background:#aaa;"></div>
         <div class="dot" style="background:#c8a96e;"></div>
-        <div class="dot" style="background:#1a1a1a;"></div>
       </div>
       <span class="card-hint">Voir photos →</span>
     </div>
@@ -158,6 +149,51 @@
         <div class="dot" style="background:#e8a0b0;"></div>
         <div class="dot" style="background:#333;"></div>
         <div class="dot" style="background:#c8a96e;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('diorbag')">
+      <span class="card-brand">Dior</span>
+      <span class="card-name">Sacoche Dior</span>
+      <span class="card-detail">Plusieurs modèles</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#1a1a1a;"></div>
+        <div class="dot" style="background:#888;"></div>
+        <div class="dot" style="background:#c8a96e;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('guccibag')">
+      <span class="card-brand">Gucci</span>
+      <span class="card-name">Sacoche Gucci</span>
+      <span class="card-detail">Plusieurs modèles</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#1a1a1a;"></div>
+        <div class="dot" style="background:#c8a96e;"></div>
+        <div class="dot" style="background:#8ab0d4;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('lvbag')">
+      <span class="card-brand">Louis Vuitton</span>
+      <span class="card-name">Sacoche LV</span>
+      <span class="card-detail">Plusieurs modèles</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#8b7355;"></div>
+        <div class="dot" style="background:#1a1a1a;"></div>
+        <div class="dot" style="background:#c8a96e;"></div>
+      </div>
+      <span class="card-hint">Voir photos →</span>
+    </div>
+    <div class="card" onclick="openGallery('sacfemme')">
+      <span class="card-brand">Sacs Femme</span>
+      <span class="card-name">Collection Femme</span>
+      <span class="card-detail">Coach · Chanel · Louis Vuitton</span>
+      <div class="color-dots">
+        <div class="dot" style="background:#c8a96e;"></div>
+        <div class="dot" style="background:#1a1a1a;"></div>
+        <div class="dot" style="background:#e8a0b0;"></div>
+        <div class="dot" style="background:#aaa;"></div>
       </div>
       <span class="card-hint">Voir photos →</span>
     </div>
@@ -208,7 +244,20 @@ const photos = {
   goyard1:            range('goyardmessager-', 10),
   belvedere:          range('goyardbelve-', 6),
   casquette:          [...range('ggcap-', 9), ...range('lvcap-', 6), ...range('othercap-', 7)],
-  vetements_shirts:   [...range('blcgshirt-', 2), ...range('cpshirt-', 3), ...range('diorshirt-', 2), ...range('lvshirt-', 3), ...range('prdshirt-', 1), ...range('sishirt-', 3)],
+  diorbag:            range('diorbag-', 11),
+  guccibag:           range('guccibag-', 10),
+  lvbag:              range('lvbag-', 8),
+  sacfemme_coach:     range('coachbaglady-', 4),
+  sacfemme_chanel:    range('channelbag-', 3),
+  sacfemme_lv:        range('lvbaglady-', 6),
+  vetements_blcg:     range('blcgshirt-', 2),
+  vetements_cp:       range('cpshirt-', 4),
+  vetements_dior:     range('diorshirt-', 6),
+  vetements_lv:       range('lvshirt-', 12),
+  vetements_prd:      range('prdshirt-', 1),
+  vetements_si:       range('sishirt-', 6),
+  vetements_brb:      range('brbshirt-', 3),
+  vetements_casa:     range('casashirt-', 7),
   vetements_zip:      range('brbzip-', 1),
 };
 
@@ -219,20 +268,45 @@ const ITEMS = {
   kayano:    { brand:'Asics',             name:'Gel-Kayano 14',       detail:'Argent / Blanc / Rose',  tags:['Pointure US 8 — 9.5 F','Neuf','Boîte incluse'] },
   goyard1:   { brand:'Goyard',            name:'Sac Messager',        detail:'Noir — Motif Chevron',   tags:['Toile Goyardine','Cuir noir','Neuf'] },
   belvedere: { brand:'Goyard',            name:'Sac Belvédère',       detail:'Plusieurs coloris',      tags:['Toile Goyardine','Neuf'] },
+  goyard:    { brand:'Goyard',            name:'Sacs Goyard',         detail:'Messager &amp; Belvédère', tags:[], isGoyard:true },
   casquette: { brand:'Casquettes',        name:'Collection Caps',     detail:'Plusieurs modèles',      tags:['Taille unique','Neuf','Étiquettes incluses'] },
+  diorbag:   { brand:'Dior',              name:'Sacoche Dior',        detail:'Plusieurs modèles',      tags:['Toile Dior','Neuf'] },
+  guccibag:  { brand:'Gucci',             name:'Sacoche Gucci',       detail:'Plusieurs modèles',      tags:['Toile GG','Neuf'] },
+  lvbag:     { brand:'Louis Vuitton',     name:'Sacoche LV',          detail:'Plusieurs modèles',      tags:['Toile Monogram','Neuf'] },
+  sacfemme:  { brand:'Sacs Femme',        name:'Collection Femme',    detail:'Coach · Chanel · LV',    tags:[], isSacFemme:true },
   vetements: { brand:'Vêtements',         name:'Collection Vêtements',detail:'T-shirts &amp; Sweats zippés', tags:[], isApparel:true },
 };
 
 const APPAREL_BRANDS = [
-  { key:'shirts', label:'T-shirts',      detail:'Collection T-shirts', tags:['Plusieurs marques','Plusieurs coloris','Neuf'] },
-  { key:'zip',    label:'Sweats Zippés', detail:'Collection Sweats',   tags:['Plusieurs marques','Noir &amp; Gris','Neuf'] },
+  { key:'blcg', label:'BLCG',        detail:'T-shirt Balenciaga',          tags:['Neuf'] },
+  { key:'cp',   label:'C.P. Company',detail:'T-shirt C.P. Company',        tags:['4 coloris','Neuf'] },
+  { key:'dior', label:'Dior',        detail:'T-shirt Dior',                tags:['6 modèles','Neuf'] },
+  { key:'lv',   label:'LV',          detail:'T-shirt Louis Vuitton',       tags:['12 modèles','Neuf'] },
+  { key:'prd',  label:'Prada',       detail:'T-shirt Prada',               tags:['Neuf'] },
+  { key:'si',   label:'Stone Island',detail:'T-shirt Stone Island',        tags:['6 modèles','Neuf'] },
+  { key:'brb',  label:'Burberry',    detail:'T-shirt Burberry',            tags:['3 modèles','Neuf'] },
+  { key:'casa', label:'Casablanca',  detail:'T-shirt Casablanca',          tags:['7 modèles','Neuf'] },
+  { key:'zip',  label:'Sweats Zippés',detail:'Sweat Zippé Burberry',       tags:['Noir &amp; Gris','Neuf'] },
 ];
 
-const currentIdx = {};
+const SAC_FEMME_MODELS = [
+  { key:'sacfemme_coach',  label:'Coach',  detail:'Sac Coach — Plusieurs coloris',      tags:['Cuir','Neuf'] },
+  { key:'sacfemme_chanel', label:'Chanel', detail:'Sac Chanel — Plusieurs modèles',     tags:['Cuir matelassé','Neuf'] },
+  { key:'sacfemme_lv',     label:'LV',     detail:'Sac Louis Vuitton — Toile Monogram', tags:['Toile Monogram','Neuf'] },
+];
+
+const GOYARD_MODELS = [
+  { key:'goyard1',   label:'Messager',  detail:'Sac Messager — Noir Chevron',        tags:['Toile Goyardine','Cuir noir','Neuf'] },
+  { key:'belvedere', label:'Belvédère', detail:'Sac Belvédère — Plusieurs coloris',  tags:['Toile Goyardine','Neuf'] },
+];
+
+
 
 function buildModal(id) {
   const item = ITEMS[id];
   if (item.isApparel) return buildApparelModal();
+  if (item.isGoyard) return buildGoyardModal();
+  if (item.isSacFemme) return buildSacFemmeModal();
   const arr = photos[id] || [];
   currentIdx[id] = 0;
   return `
@@ -282,14 +356,214 @@ function buildApparelModal() {
     </div>`;
 }
 
-function buildMainZone(id, arr, idx) {
-  if (!arr.length) return `<div class="modal-empty"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
-  return `<div class="main-img-wrap">
-    <img class="modal-main-img" id="main-${id}" src="${arr[idx]}" alt="Photo ${idx+1}" onerror="this.style.opacity='0.1'"/>
-    <button class="nav-btn nav-prev ${idx===0?'hidden':''}" onclick="navPhoto('${id}',-1)">‹</button>
-    <button class="nav-btn nav-next ${idx===arr.length-1?'hidden':''}" onclick="navPhoto('${id}',1)">›</button>
-  </div>`;
+function buildSacFemmeModal() {
+  const activeKey = window._activeSacFemme || SAC_FEMME_MODELS[0].key;
+  const sm = SAC_FEMME_MODELS.find(m=>m.key===activeKey) || SAC_FEMME_MODELS[0];
+  const arr = photos[activeKey] || [];
+  currentIdx['sacfemme'] = 0;
+  const tabsHTML = SAC_FEMME_MODELS.map(m=>
+    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchSacFemme('${m.key}')">${m.label}</button>`
+  ).join('');
+  const mainHTML = arr.length > 0
+    ? `<div class="main-img-wrap" id="sacfemme-main-wrap">
+        <img class="modal-main-img" id="main-sacfemme" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
+        <button class="nav-btn nav-prev hidden" onclick="navSacFemme(-1)">‹</button>
+        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navSacFemme(1)">›</button>
+      </div>`
+    : `<div class="modal-empty" id="sacfemme-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
+  return `
+    <div class="modal-overlay" id="overlay-sacfemme">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-brand">Sacs Femme</div>
+            <div class="modal-name" id="sacfemme-modal-name">${sm.label}</div>
+            <div class="modal-detail" id="sacfemme-modal-detail">${sm.detail}</div>
+          </div>
+          <button class="modal-close" onclick="closeGallery('sacfemme')">✕ Fermer</button>
+        </div>
+        <div class="brand-tabs">${tabsHTML}</div>
+        ${mainHTML}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-sacfemme">${buildSacFemmeThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-sacfemme"></div>'}
+        <div class="modal-info" id="sacfemme-modal-info">${sm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
+      </div>
+    </div>`;
 }
+
+function buildSacFemmeThumbsHTML(key, arr, activeIdx) {
+  return arr.map((src,i)=>`
+    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectSacFemme('${key}',${i})">
+      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
+    </div>`).join('') + (arr.length > 1 ? `<span class="photo-counter">${arr.length} photos</span>` : '');
+}
+
+function switchSacFemme(key) {
+  window._activeSacFemme = key;
+  const sm = SAC_FEMME_MODELS.find(m=>m.key===key);
+  const arr = photos[key] || [];
+  currentIdx['sacfemme'] = 0;
+  document.querySelectorAll('#overlay-sacfemme .brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===sm.label));
+  const nm = document.getElementById('sacfemme-modal-name'); if(nm) nm.textContent = sm.label;
+  const dt = document.getElementById('sacfemme-modal-detail'); if(dt) dt.textContent = sm.detail;
+  const info = document.getElementById('sacfemme-modal-info');
+  if(info) info.innerHTML = sm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
+  const tw = document.getElementById('thumbs-sacfemme');
+  if(tw) tw.innerHTML = arr.length > 1 ? buildSacFemmeThumbsHTML(key, arr, 0) : '';
+  const mainWrap = document.getElementById('sacfemme-main-wrap');
+  if (arr.length > 0 && mainWrap) {
+    const img = mainWrap.querySelector('img');
+    if (img) { img.src = arr[0]; }
+    else {
+      mainWrap.outerHTML = `<div class="main-img-wrap" id="sacfemme-main-wrap">
+        <img class="modal-main-img" id="main-sacfemme" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
+        <button class="nav-btn nav-prev hidden" onclick="navSacFemme(-1)">‹</button>
+        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navSacFemme(1)">›</button>
+      </div>`;
+    }
+  }
+}
+
+function selectSacFemme(key, idx) {
+  const arr = photos[key] || [];
+  if (idx < 0 || idx >= arr.length) return;
+  currentIdx['sacfemme'] = idx;
+  const img = document.getElementById('main-sacfemme');
+  if (img) img.src = arr[idx];
+  document.querySelectorAll('#thumbs-sacfemme .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  const overlay = document.getElementById('overlay-sacfemme');
+  if (overlay) {
+    const prev = overlay.querySelector('.nav-prev');
+    const next = overlay.querySelector('.nav-next');
+    if (prev) prev.classList.toggle('hidden', idx===0);
+    if (next) next.classList.toggle('hidden', idx===arr.length-1);
+  }
+}
+
+function navSacFemme(dir) {
+  const key = window._activeSacFemme || SAC_FEMME_MODELS[0].key;
+  const arr = photos[key] || [];
+  const newIdx = (currentIdx['sacfemme']||0) + dir;
+  if (newIdx >= 0 && newIdx < arr.length) selectSacFemme(key, newIdx);
+}
+
+
+  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
+  const gm = GOYARD_MODELS.find(m=>m.key===activeKey) || GOYARD_MODELS[0];
+  const arr = photos[activeKey] || [];
+  currentIdx['goyard'] = 0;
+  const tabsHTML = GOYARD_MODELS.map(m=>
+    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchGoyardModel('${m.key}')">${m.label}</button>`
+  ).join('');
+  const mainHTML = arr.length > 0
+    ? `<div class="main-img-wrap" id="goyard-main-wrap">
+        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
+        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
+        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
+      </div>`
+    : `<div class="modal-empty" id="goyard-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
+  return `
+    <div class="modal-overlay" id="overlay-goyard">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-brand">Goyard</div>
+            <div class="modal-name" id="goyard-modal-name">${gm.label}</div>
+            <div class="modal-detail" id="goyard-modal-detail">${gm.detail}</div>
+          </div>
+          <button class="modal-close" onclick="closeGallery('goyard')">✕ Fermer</button>
+        </div>
+        <div class="brand-tabs">${tabsHTML}</div>
+        ${mainHTML}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-goyard">${buildGoyardThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-goyard"></div>'}
+        <div class="modal-info" id="goyard-modal-info">${gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
+      </div>
+    </div>`;
+}
+
+function buildGoyardThumbsHTML(modelKey, arr, activeIdx) {
+  return arr.map((src,i)=>`
+    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectGoyardPhoto('${modelKey}',${i})">
+      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
+    </div>`).join('') + (arr.length > 1 ? `<span class="photo-counter">${arr.length} photos</span>` : '');
+}
+
+function switchGoyardModel(modelKey) {
+  window._activeGoyardModel = modelKey;
+  const gm = GOYARD_MODELS.find(m=>m.key===modelKey);
+  const arr = photos[modelKey] || [];
+  currentIdx['goyard'] = 0;
+  document.querySelectorAll('#overlay-goyard .brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===gm.label));
+  const nm = document.getElementById('goyard-modal-name'); if(nm) nm.textContent = gm.label;
+  const dt = document.getElementById('goyard-modal-detail'); if(dt) dt.textContent = gm.detail;
+  const info = document.getElementById('goyard-modal-info');
+  if(info) info.innerHTML = gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
+  const tw = document.getElementById('thumbs-goyard');
+  if(tw) tw.innerHTML = arr.length > 1 ? buildGoyardThumbsHTML(modelKey, arr, 0) : '';
+  const mainWrap = document.getElementById('goyard-main-wrap');
+  if (arr.length > 0) {
+    if (mainWrap && mainWrap.tagName==='DIV' && mainWrap.querySelector('img')) {
+      mainWrap.querySelector('img').src = arr[0];
+    } else if (mainWrap) {
+      mainWrap.outerHTML = `<div class="main-img-wrap" id="goyard-main-wrap">
+        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
+        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
+        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
+      </div>`;
+    }
+  }
+}
+
+function selectGoyardPhoto(modelKey, idx) {
+  const arr = photos[modelKey] || [];
+  if (idx < 0 || idx >= arr.length) return;
+  currentIdx['goyard'] = idx;
+  const img = document.getElementById('main-goyard');
+  if (img) img.src = arr[idx];
+  document.querySelectorAll('#thumbs-goyard .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
+  const overlay = document.getElementById('overlay-goyard');
+  if (overlay) {
+    const prev = overlay.querySelector('.nav-prev');
+    const next = overlay.querySelector('.nav-next');
+    if (prev) prev.classList.toggle('hidden', idx===0);
+    if (next) next.classList.toggle('hidden', idx===arr.length-1);
+  }
+}
+
+function navGoyardPhoto(dir) {
+  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
+  const arr = photos[activeKey] || [];
+  const newIdx = (currentIdx['goyard']||0) + dir;
+  if (newIdx >= 0 && newIdx < arr.length) selectGoyardPhoto(activeKey, newIdx);
+}
+
+function buildApparelModal() {
+  const activeBrandKey = window._activeApparelBrand || APPAREL_BRANDS[0].key;
+  const ab = APPAREL_BRANDS.find(b=>b.key===activeBrandKey) || APPAREL_BRANDS[0];
+  const arr = photos['vetements_'+activeBrandKey] || [];
+  currentIdx['vetements'] = 0;
+  const tabsHTML = APPAREL_BRANDS.map(b=>
+    `<button class="brand-tab ${b.key===activeBrandKey?'active':''}" onclick="switchApparelBrand('${b.key}')">${b.label}</button>`
+  ).join('');
+  return `
+    <div class="modal-overlay" id="overlay-vetements">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <div class="modal-brand">Vêtements</div>
+            <div class="modal-name" id="apparel-modal-name">${ab.label}</div>
+            <div class="modal-detail" id="apparel-modal-detail">${ab.detail}</div>
+          </div>
+          <button class="modal-close" onclick="closeGallery('vetements')">✕ Fermer</button>
+        </div>
+        <div class="brand-tabs" style="overflow-x:auto;flex-wrap:nowrap;">${tabsHTML}</div>
+        ${buildApparelMainZone(activeBrandKey, arr, 0)}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-vetements">${buildApparelThumbsHTML(activeBrandKey, arr, 0)}</div></div>` : '<div id="thumbs-vetements"></div>'}
+        <div class="modal-info" id="apparel-modal-info">${ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
+      </div>
+    </div>`;
 
 function buildApparelMainZone(brandKey, arr, idx) {
   if (!arr.length) return `<div class="modal-empty" id="apparel-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
@@ -316,6 +590,8 @@ function buildApparelThumbsHTML(brandKey, arr, activeIdx) {
 
 function openGallery(id) {
   if (id==='vetements') window._activeApparelBrand = APPAREL_BRANDS[0].key;
+  if (id==='goyard') window._activeGoyardModel = GOYARD_MODELS[0].key;
+  if (id==='sacfemme') window._activeSacFemme = SAC_FEMME_MODELS[0].key;
   const ex = document.getElementById('overlay-'+id);
   if (ex) ex.remove();
   document.getElementById('modals-container').insertAdjacentHTML('beforeend', buildModal(id));
