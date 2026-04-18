@@ -302,6 +302,8 @@ const GOYARD_MODELS = [
 
 
 
+const currentIdx = {};
+
 function buildModal(id) {
   const item = ITEMS[id];
   if (item.isApparel) return buildApparelModal();
@@ -538,32 +540,40 @@ function navGoyardPhoto(dir) {
   if (newIdx >= 0 && newIdx < arr.length) selectGoyardPhoto(activeKey, newIdx);
 }
 
-function buildApparelModal() {
-  const activeBrandKey = window._activeApparelBrand || APPAREL_BRANDS[0].key;
-  const ab = APPAREL_BRANDS.find(b=>b.key===activeBrandKey) || APPAREL_BRANDS[0];
-  const arr = photos['vetements_'+activeBrandKey] || [];
-  currentIdx['vetements'] = 0;
-  const tabsHTML = APPAREL_BRANDS.map(b=>
-    `<button class="brand-tab ${b.key===activeBrandKey?'active':''}" onclick="switchApparelBrand('${b.key}')">${b.label}</button>`
+function buildGoyardModal() {
+  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
+  const gm = GOYARD_MODELS.find(m=>m.key===activeKey) || GOYARD_MODELS[0];
+  const arr = photos[activeKey] || [];
+  currentIdx['goyard'] = 0;
+  const tabsHTML = GOYARD_MODELS.map(m=>
+    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchGoyardModel('${m.key}')">${m.label}</button>`
   ).join('');
+  const mainHTML = arr.length > 0
+    ? `<div class="main-img-wrap" id="goyard-main-wrap">
+        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
+        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
+        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
+      </div>`
+    : `<div class="modal-empty" id="goyard-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
   return `
-    <div class="modal-overlay" id="overlay-vetements">
+    <div class="modal-overlay" id="overlay-goyard">
       <div class="modal">
         <div class="modal-header">
           <div>
-            <div class="modal-brand">Vêtements</div>
-            <div class="modal-name" id="apparel-modal-name">${ab.label}</div>
-            <div class="modal-detail" id="apparel-modal-detail">${ab.detail}</div>
+            <div class="modal-brand">Goyard</div>
+            <div class="modal-name" id="goyard-modal-name">${gm.label}</div>
+            <div class="modal-detail" id="goyard-modal-detail">${gm.detail}</div>
           </div>
-          <button class="modal-close" onclick="closeGallery('vetements')">✕ Fermer</button>
+          <button class="modal-close" onclick="closeGallery('goyard')">✕ Fermer</button>
         </div>
-        <div class="brand-tabs" style="overflow-x:auto;flex-wrap:nowrap;">${tabsHTML}</div>
-        ${buildApparelMainZone(activeBrandKey, arr, 0)}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-vetements">${buildApparelThumbsHTML(activeBrandKey, arr, 0)}</div></div>` : '<div id="thumbs-vetements"></div>'}
-        <div class="modal-info" id="apparel-modal-info">${ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
+        <div class="brand-tabs">${tabsHTML}</div>
+        ${mainHTML}
+        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-goyard">${buildGoyardThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-goyard"></div>'}
+        <div class="modal-info" id="goyard-modal-info">${gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
         <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
       </div>
     </div>`;
+}
 
 function buildApparelMainZone(brandKey, arr, idx) {
   if (!arr.length) return `<div class="modal-empty" id="apparel-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
