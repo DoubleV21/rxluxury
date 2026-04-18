@@ -3,94 +3,93 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RxLuxury — Nouvelle Arrivée</title>
+<title>RxLuxury</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d0d0d; display: flex; justify-content: center; padding: 40px 20px; min-height: 100vh; font-family: 'Inter', sans-serif; }
-  .flyer { background: #0a0a0a; color: #fff; width: 100%; max-width: 680px; overflow: hidden; border-radius: 16px; border: 0.5px solid #222; }
-  .gold-line { height: 2px; background: linear-gradient(90deg, #8a6a2e, #c8a96e, #e8c98e, #c8a96e, #8a6a2e); }
-  .header { padding: 32px 32px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid #222; }
-  .brand-rx { font-size: 36px; font-weight: 900; letter-spacing: -1px; color: #fff; line-height: 1; }
-  .brand-luxury { font-size: 13px; font-weight: 300; letter-spacing: 6px; color: #888; text-transform: uppercase; margin-top: 2px; }
-  .badge { background: #c8a96e; color: #0a0a0a; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; }
-  .tagline { padding: 16px 32px; font-size: 12px; letter-spacing: 3px; color: #555; text-transform: uppercase; border-bottom: 0.5px solid #1a1a1a; }
-  .section-title { padding: 20px 32px 12px; font-size: 10px; letter-spacing: 4px; color: #c8a96e; text-transform: uppercase; }
-  .divider { height: 1px; background: #1a1a1a; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #1a1a1a; margin-bottom: 1px; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: #1a1a1a; }
-  .card { background: #111; padding: 20px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: background 0.2s; position: relative; }
-  .card:hover { background: #161616; }
-  .card:hover .card-hint { opacity: 1; }
-  .card-brand { font-size: 9px; letter-spacing: 3px; color: #c8a96e; text-transform: uppercase; }
-  .card-name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.2; }
-  .card-detail { font-size: 11px; color: #555; }
-  .card-pill { display: inline-block; background: #1e1e1e; border: 0.5px solid #333; border-radius: 20px; padding: 3px 10px; font-size: 10px; color: #888; width: fit-content; }
-  .color-dots { display: flex; gap: 4px; margin-top: 2px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; border: 0.5px solid #333; }
-  .card-hint { position: absolute; bottom: 12px; right: 14px; font-size: 9px; letter-spacing: 2px; color: #c8a96e88; text-transform: uppercase; opacity: 0; transition: opacity 0.2s; }
-  .card-full { background: #111; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: background 0.2s; position: relative; border-top: 0.5px solid #1a1a1a; }
-  .card-full:hover { background: #161616; }
-  .card-full:hover .card-hint { opacity: 1; }
-  .card-full-title { font-size: 13px; font-weight: 700; color: #fff; }
-  .card-full-sub { font-size: 10px; color: #444; margin-top: 3px; letter-spacing: 0.5px; }
-  .brands-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .brand-pill { background: #1a1a1a; border: 0.5px solid #2a2a2a; border-radius: 20px; padding: 5px 14px; font-size: 10px; color: #888; letter-spacing: 1px; }
-  .highlight-bar { background: #c8a96e; color: #0a0a0a; text-align: center; padding: 10px; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
-  .footer { padding: 24px 32px; border-top: 0.5px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
-  .footer-handle { font-size: 15px; font-weight: 700; color: #fff; }
-  .footer-sub { font-size: 10px; color: #555; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
-  .footer-cta { font-size: 11px; color: #c8a96e; letter-spacing: 1px; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 1000; overflow-y: auto; padding: 30px 20px 60px; }
-  .modal-overlay.open { display: block; }
-  .modal { background: #0f0f0f; border: 0.5px solid #2a2a2a; border-radius: 12px; max-width: 780px; margin: 0 auto; overflow: hidden; }
-  .modal-header { padding: 20px 24px 16px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 0.5px solid #1e1e1e; }
-  .modal-brand { font-size: 9px; letter-spacing: 3px; color: #c8a96e; text-transform: uppercase; margin-bottom: 4px; }
-  .modal-name { font-size: 20px; font-weight: 700; color: #fff; }
-  .modal-detail { font-size: 12px; color: #555; margin-top: 4px; }
-  .modal-close { background: #1a1a1a; border: 0.5px solid #333; color: #aaa; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, color 0.2s; white-space: nowrap; margin-left: 16px; flex-shrink: 0; }
-  .modal-close:hover { background: #c8a96e; color: #0a0a0a; border-color: #c8a96e; }
-  .modal-main-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; background: #141414; }
-  .modal-empty { width: 100%; aspect-ratio: 4/3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #141414; }
-  .modal-empty-icon { font-size: 32px; opacity: 0.15; }
-  .modal-empty-text { font-size: 11px; color: #333; letter-spacing: 2px; text-transform: uppercase; }
-  .modal-thumbs-wrap { border-top: 0.5px solid #1e1e1e; background: #0a0a0a; padding: 8px; overflow-x: auto; }
-  .modal-thumbs { display: flex; gap: 6px; align-items: center; min-height: 72px; }
-  .thumb { flex-shrink: 0; width: 64px; height: 64px; background: #141414; border-radius: 4px; overflow: hidden; position: relative; cursor: pointer; border: 1.5px solid transparent; transition: border-color 0.2s; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.65; transition: opacity 0.2s, transform 0.2s; }
-  .thumb:hover img { opacity: 1; transform: scale(1.06); }
-  .thumb.active { border-color: #c8a96e; }
-  .thumb.active img { opacity: 1; }
-  .photo-counter { font-size: 9px; color: #444; letter-spacing: 1px; padding: 0 4px; white-space: nowrap; flex-shrink: 0; }
-  .modal-info { padding: 14px 24px; display: flex; gap: 8px; flex-wrap: wrap; border-top: 0.5px solid #1e1e1e; }
-  .info-tag { background: #1a1a1a; border: 0.5px solid #2a2a2a; border-radius: 20px; padding: 4px 12px; font-size: 10px; color: #666; letter-spacing: 1px; }
-  .contact-bar { padding: 14px 24px; border-top: 0.5px solid #1e1e1e; display: flex; justify-content: center; }
-  .contact-btn { background: #c8a96e; color: #0a0a0a; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 10px 28px; border-radius: 20px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: opacity 0.2s; }
-  .contact-btn:hover { opacity: 0.85; }
-  .brand-tabs { display: flex; gap: 1px; background: #1a1a1a; border-bottom: 0.5px solid #1e1e1e; }
-  .brand-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #444; background: #111; cursor: pointer; transition: background 0.2s, color 0.2s; border: none; font-family: 'Inter', sans-serif; }
-  .brand-tab:hover { color: #aaa; background: #161616; }
-  .brand-tab.active { color: #c8a96e; background: #0f0f0f; border-bottom: 2px solid #c8a96e; }
-  .main-img-wrap { position: relative; }
-  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: 0.5px solid #333; color: #aaa; font-size: 18px; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; z-index: 2; }
-  .nav-btn:hover { background: #c8a96e; color: #0a0a0a; border-color: #c8a96e; }
-  .nav-prev { left: 12px; }
-  .nav-next { right: 12px; }
-  .nav-btn.hidden { display: none; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;min-height:100vh;font-family:'Inter',sans-serif;}
+.flyer{background:#0a0a0a;color:#fff;width:100%;max-width:680px;overflow:hidden;border-radius:16px;border:0.5px solid #222;}
+.gold-line{height:2px;background:linear-gradient(90deg,#8a6a2e,#c8a96e,#e8c98e,#c8a96e,#8a6a2e);}
+.header{padding:32px 32px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid #222;}
+.brand-rx{font-size:36px;font-weight:900;letter-spacing:-1px;color:#fff;line-height:1;}
+.brand-luxury{font-size:13px;font-weight:300;letter-spacing:6px;color:#888;text-transform:uppercase;margin-top:2px;}
+.badge{background:#c8a96e;color:#0a0a0a;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:20px;}
+.tagline{padding:16px 32px;font-size:12px;letter-spacing:3px;color:#555;text-transform:uppercase;border-bottom:0.5px solid #1a1a1a;}
+.section-title{padding:20px 32px 12px;font-size:10px;letter-spacing:4px;color:#c8a96e;text-transform:uppercase;}
+.divider{height:1px;background:#1a1a1a;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1a1a1a;margin-bottom:1px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:#1a1a1a;}
+.card{background:#111;padding:20px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:background 0.2s;position:relative;}
+.card:hover{background:#161616;}
+.card:hover .card-hint{opacity:1;}
+.card-brand{font-size:9px;letter-spacing:3px;color:#c8a96e;text-transform:uppercase;}
+.card-name{font-size:13px;font-weight:600;color:#fff;line-height:1.2;}
+.card-detail{font-size:11px;color:#555;}
+.card-pill{display:inline-block;background:#1e1e1e;border:0.5px solid #333;border-radius:20px;padding:3px 10px;font-size:10px;color:#888;width:fit-content;}
+.color-dots{display:flex;gap:4px;margin-top:2px;}
+.dot{width:8px;height:8px;border-radius:50%;border:0.5px solid #333;}
+.card-hint{position:absolute;bottom:12px;right:14px;font-size:9px;letter-spacing:2px;color:#c8a96e88;text-transform:uppercase;opacity:0;transition:opacity 0.2s;}
+.card-full{background:#111;padding:20px 24px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:background 0.2s;position:relative;border-top:0.5px solid #1a1a1a;}
+.card-full:hover{background:#161616;}
+.card-full:hover .card-hint{opacity:1;}
+.card-full-title{font-size:13px;font-weight:700;color:#fff;}
+.card-full-sub{font-size:10px;color:#444;margin-top:3px;letter-spacing:0.5px;}
+.brands-row{display:flex;gap:8px;flex-wrap:wrap;}
+.brand-pill{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:20px;padding:5px 14px;font-size:10px;color:#888;letter-spacing:1px;}
+.highlight-bar{background:#c8a96e;color:#0a0a0a;text-align:center;padding:10px;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;}
+.footer{padding:24px 32px;border-top:0.5px solid #1a1a1a;display:flex;justify-content:space-between;align-items:center;}
+.footer-handle{font-size:15px;font-weight:700;color:#fff;}
+.footer-sub{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+.footer-cta{font-size:11px;color:#c8a96e;letter-spacing:1px;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:1000;overflow-y:auto;padding:30px 20px 60px;}
+.modal-overlay.open{display:block;}
+.modal{background:#0f0f0f;border:0.5px solid #2a2a2a;border-radius:12px;max-width:780px;margin:0 auto;overflow:hidden;}
+.modal-header{padding:20px 24px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:0.5px solid #1e1e1e;}
+.modal-brand{font-size:9px;letter-spacing:3px;color:#c8a96e;text-transform:uppercase;margin-bottom:4px;}
+.modal-name{font-size:20px;font-weight:700;color:#fff;}
+.modal-detail{font-size:12px;color:#555;margin-top:4px;}
+.modal-close{background:#1a1a1a;border:0.5px solid #333;color:#aaa;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s,color 0.2s;white-space:nowrap;margin-left:16px;flex-shrink:0;}
+.modal-close:hover{background:#c8a96e;color:#0a0a0a;border-color:#c8a96e;}
+.modal-main-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#141414;}
+.modal-empty{width:100%;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#141414;}
+.modal-empty-icon{font-size:32px;opacity:0.15;}
+.modal-empty-text{font-size:11px;color:#333;letter-spacing:2px;text-transform:uppercase;}
+.modal-thumbs-wrap{border-top:0.5px solid #1e1e1e;background:#0a0a0a;padding:8px;overflow-x:auto;}
+.modal-thumbs{display:flex;gap:6px;align-items:center;min-height:72px;}
+.thumb{flex-shrink:0;width:64px;height:64px;background:#141414;border-radius:4px;overflow:hidden;cursor:pointer;border:1.5px solid transparent;transition:border-color 0.2s;}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:0.65;transition:opacity 0.2s;}
+.thumb:hover img{opacity:1;}
+.thumb.active{border-color:#c8a96e;}
+.thumb.active img{opacity:1;}
+.photo-counter{font-size:9px;color:#444;letter-spacing:1px;padding:0 4px;white-space:nowrap;flex-shrink:0;}
+.modal-info{padding:14px 24px;display:flex;gap:8px;flex-wrap:wrap;border-top:0.5px solid #1e1e1e;}
+.info-tag{background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:20px;padding:4px 12px;font-size:10px;color:#666;letter-spacing:1px;}
+.contact-bar{padding:14px 24px;border-top:0.5px solid #1e1e1e;display:flex;justify-content:center;}
+.contact-btn{background:#c8a96e;color:#0a0a0a;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:10px 28px;border-radius:20px;border:none;cursor:pointer;font-family:'Inter',sans-serif;}
+.contact-btn:hover{opacity:0.85;}
+.brand-tabs{display:flex;gap:1px;background:#1a1a1a;border-bottom:0.5px solid #1e1e1e;overflow-x:auto;}
+.brand-tab{flex-shrink:0;padding:12px 14px;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#444;background:#111;cursor:pointer;border:none;font-family:'Inter',sans-serif;white-space:nowrap;transition:background 0.2s,color 0.2s;}
+.brand-tab:hover{color:#aaa;background:#161616;}
+.brand-tab.active{color:#c8a96e;background:#0f0f0f;border-bottom:2px solid #c8a96e;}
+.main-img-wrap{position:relative;}
+.nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);border:0.5px solid #333;color:#aaa;font-size:18px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;transition:background 0.2s;}
+.nav-btn:hover{background:#c8a96e;color:#0a0a0a;}
+.nav-prev{left:12px;}
+.nav-next{right:12px;}
+.nav-btn.hidden{display:none;}
 </style>
 </head>
 <body>
-
 <div class="flyer">
   <div class="gold-line"></div>
   <div class="header">
     <div>
       <div class="brand-rx">RxLuxury</div>
-      <div class="brand-luxury">Streetwear · Baskets · Accessoires</div>
+      <div class="brand-luxury">Streetwear &middot; Baskets &middot; Accessoires</div>
     </div>
-    <div class="badge">Nouvelle Arrivée</div>
+    <div class="badge">Nouvelle Arriv&eacute;e</div>
   </div>
-  <div class="tagline">Pièces sélectionnées — Qualité premium</div>
+  <div class="tagline">Pi&egrave;ces s&eacute;lectionn&eacute;es &mdash; Qualit&eacute; premium</div>
 
   <div class="section-title">Baskets</div>
   <div class="grid-2">
@@ -98,131 +97,130 @@
       <span class="card-brand">Saucony Originals</span>
       <span class="card-name">Pro Grid Omni 9</span>
       <span class="card-detail">Rose / Violet</span>
-      <span class="card-pill">Pointure US 11.5 H — 13 F</span>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-pill">Pointure US 11.5 H &mdash; 13 F</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('gelnyc')">
       <span class="card-brand">Asics</span>
       <span class="card-name">Gel NYC</span>
       <span class="card-detail">Plusieurs coloris</span>
       <span class="card-pill">Pointures disponibles</span>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('cloudtilt')">
       <span class="card-brand">On Running</span>
       <span class="card-name">Cloudtilt &amp; Loewe</span>
-      <span class="card-detail">Plusieurs modèles</span>
+      <span class="card-detail">Plusieurs mod&egrave;les</span>
       <span class="card-pill">Pointures disponibles</span>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('kayano')">
       <span class="card-brand">Asics</span>
       <span class="card-name">Gel-Kayano 14</span>
       <span class="card-detail">Argent / Blanc / Rose</span>
-      <span class="card-pill">Pointure US 8 — 9.5 F</span>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-pill">Pointure US 8 &mdash; 9.5 F</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
   </div>
 
   <div class="divider"></div>
-
   <div class="section-title">Accessoires</div>
   <div class="grid-3">
     <div class="card" onclick="openGallery('goyard')">
       <span class="card-brand">Goyard</span>
       <span class="card-name">Sacs Goyard</span>
-      <span class="card-detail">Messager & Belvédère</span>
+      <span class="card-detail">Messager &amp; Belv&eacute;d&egrave;re</span>
       <div class="color-dots">
         <div class="dot" style="background:#1a1a1a;"></div>
         <div class="dot" style="background:#8b7355;"></div>
         <div class="dot" style="background:#aaa;"></div>
-        <div class="dot" style="background:#c8a96e;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('casquette')">
       <span class="card-brand">Casquettes</span>
       <span class="card-name">Collection Caps</span>
-      <span class="card-detail">Plusieurs modèles disponibles</span>
+      <span class="card-detail">Plusieurs mod&egrave;les</span>
       <div class="color-dots">
         <div class="dot" style="background:#8ab0d4;"></div>
         <div class="dot" style="background:#e8a0b0;"></div>
         <div class="dot" style="background:#333;"></div>
         <div class="dot" style="background:#c8a96e;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('diorbag')">
       <span class="card-brand">Dior</span>
       <span class="card-name">Sacoche Dior</span>
-      <span class="card-detail">Plusieurs modèles</span>
+      <span class="card-detail">Plusieurs mod&egrave;les</span>
       <div class="color-dots">
         <div class="dot" style="background:#1a1a1a;"></div>
         <div class="dot" style="background:#888;"></div>
-        <div class="dot" style="background:#c8a96e;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('guccibag')">
       <span class="card-brand">Gucci</span>
       <span class="card-name">Sacoche Gucci</span>
-      <span class="card-detail">Plusieurs modèles</span>
+      <span class="card-detail">Plusieurs mod&egrave;les</span>
       <div class="color-dots">
         <div class="dot" style="background:#1a1a1a;"></div>
         <div class="dot" style="background:#c8a96e;"></div>
-        <div class="dot" style="background:#8ab0d4;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('lvbag')">
       <span class="card-brand">Louis Vuitton</span>
       <span class="card-name">Sacoche LV</span>
-      <span class="card-detail">Plusieurs modèles</span>
+      <span class="card-detail">Plusieurs mod&egrave;les</span>
       <div class="color-dots">
         <div class="dot" style="background:#8b7355;"></div>
         <div class="dot" style="background:#1a1a1a;"></div>
-        <div class="dot" style="background:#c8a96e;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('sacfemme')">
       <span class="card-brand">Sacs Femme</span>
       <span class="card-name">Collection Femme</span>
-      <span class="card-detail">Coach · Chanel · Louis Vuitton</span>
+      <span class="card-detail">Coach &middot; Chanel &middot; LV</span>
       <div class="color-dots">
         <div class="dot" style="background:#c8a96e;"></div>
         <div class="dot" style="background:#1a1a1a;"></div>
         <div class="dot" style="background:#e8a0b0;"></div>
-        <div class="dot" style="background:#aaa;"></div>
       </div>
-      <span class="card-hint">Voir photos →</span>
+      <span class="card-hint">Voir photos &rarr;</span>
     </div>
   </div>
 
   <div class="divider"></div>
-
-  <div class="section-title">Vêtements</div>
+  <div class="section-title">V&ecirc;tements</div>
   <div class="card-full" onclick="openGallery('vetements')">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div>
-        <div class="card-full-title">Collection Vêtements</div>
-        <div class="card-full-sub">T-shirts, sweats &amp; plus — cliquez pour voir toutes les pièces</div>
+        <div class="card-full-title">Collection V&ecirc;tements</div>
+        <div class="card-full-sub">T-shirts, sweats &amp; plus &mdash; cliquez pour voir toutes les pi&egrave;ces</div>
       </div>
-      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos →</span>
+      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
     <div class="brands-row">
-      <span class="brand-pill">T-shirts</span>
-      <span class="brand-pill">Sweats zippés</span>
+      <span class="brand-pill">BLCG</span>
+      <span class="brand-pill">C.P. Company</span>
+      <span class="brand-pill">Dior</span>
+      <span class="brand-pill">LV</span>
+      <span class="brand-pill">Prada</span>
+      <span class="brand-pill">Stone Island</span>
+      <span class="brand-pill">Burberry</span>
+      <span class="brand-pill">Casablanca</span>
     </div>
   </div>
 
-  <div class="highlight-bar">Disponibilités limitées — Contactez-nous</div>
+  <div class="highlight-bar">Disponibilit&eacute;s limit&eacute;es &mdash; Contactez-nous</div>
   <div class="footer">
     <div>
       <div class="footer-handle">@RxLuxury</div>
-      <div class="footer-sub">Message privé pour infos &amp; prix</div>
+      <div class="footer-sub">Message priv&eacute; pour infos &amp; prix</div>
     </div>
-    <div class="footer-cta">✦ Stock limité ✦</div>
+    <div class="footer-cta">&#10022; Stock limit&eacute; &#10022;</div>
   </div>
   <div class="gold-line"></div>
 </div>
@@ -230,449 +228,251 @@
 <div id="modals-container"></div>
 
 <script>
-const BASE = 'https://DoubleV21.github.io/rxluxury/';
+var BASE = 'https://DoubleV21.github.io/rxluxury/';
 
 function range(prefix, n) {
-  return Array.from({length: n}, (_, i) => `${BASE}${prefix}${i+1}.jpg`);
+  var arr = [];
+  for (var i = 1; i <= n; i++) {
+    arr.push(BASE + prefix + i + '.jpg');
+  }
+  return arr;
 }
 
-const photos = {
-  omni9:              range('omni9-', 40),
-  gelnyc:             range('asicsnyc-', 6),
-  cloudtilt:          [...range('oncloudtilt-', 6), ...range('onloewe-', 5)],
-  kayano:             range('asicskayano-', 8),
-  goyard1:            range('goyardmessager-', 10),
-  belvedere:          range('goyardbelve-', 6),
-  casquette:          [...range('ggcap-', 9), ...range('lvcap-', 6), ...range('othercap-', 7)],
-  diorbag:            range('diorbag-', 11),
-  guccibag:           range('guccibag-', 10),
-  lvbag:              range('lvbag-', 8),
-  sacfemme_coach:     range('coachbaglady-', 4),
-  sacfemme_chanel:    range('channelbag-', 3),
-  sacfemme_lv:        range('lvbaglady-', 6),
-  vetements_blcg:     range('blcgshirt-', 2),
-  vetements_cp:       range('cpshirt-', 4),
-  vetements_dior:     range('diorshirt-', 6),
-  vetements_lv:       range('lvshirt-', 12),
-  vetements_prd:      range('prdshirt-', 1),
-  vetements_si:       range('sishirt-', 6),
-  vetements_brb:      range('brbshirt-', 3),
-  vetements_casa:     range('casashirt-', 7),
-  vetements_zip:      range('brbzip-', 1),
+var photos = {
+  omni9:           range('omni9-', 40),
+  gelnyc:          range('asicsnyc-', 6),
+  cloudtilt:       range('oncloudtilt-', 6).concat(range('onloewe-', 5)),
+  kayano:          range('asicskayano-', 8),
+  goyard_mess:     range('goyardmessager-', 10),
+  goyard_belv:     range('goyardbelve-', 6),
+  casquette:       range('ggcap-', 9).concat(range('lvcap-', 6)).concat(range('othercap-', 7)),
+  diorbag:         range('diorbag-', 11),
+  guccibag:        range('guccibag-', 10),
+  lvbag:           range('lvbag-', 8),
+  sacfemme_coach:  range('coachbaglady-', 4),
+  sacfemme_chanel: range('channelbag-', 3),
+  sacfemme_lv:     range('lvbaglady-', 6),
+  vet_blcg:        range('blcgshirt-', 2),
+  vet_cp:          range('cpshirt-', 4),
+  vet_dior:        range('diorshirt-', 6),
+  vet_lv:          range('lvshirt-', 12),
+  vet_prd:         range('prdshirt-', 1),
+  vet_si:          range('sishirt-', 6),
+  vet_brb:         range('brbshirt-', 3),
+  vet_casa:        range('casashirt-', 7),
+  vet_zip:         range('brbzip-', 1)
 };
 
-const ITEMS = {
-  omni9:     { brand:'Saucony Originals', name:'Pro Grid Omni 9',    detail:'Rose / Violet',         tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boîte incluse'] },
-  gelnyc:    { brand:'Asics',             name:'Gel NYC',             detail:'Plusieurs coloris',      tags:['Pointures disponibles','Neuf','Boîte incluse'] },
-  cloudtilt: { brand:'On Running',        name:'Cloudtilt &amp; Loewe', detail:'Plusieurs modèles',   tags:['Pointures disponibles','Neuf','Boîte incluse'] },
-  kayano:    { brand:'Asics',             name:'Gel-Kayano 14',       detail:'Argent / Blanc / Rose',  tags:['Pointure US 8 — 9.5 F','Neuf','Boîte incluse'] },
-  goyard1:   { brand:'Goyard',            name:'Sac Messager',        detail:'Noir — Motif Chevron',   tags:['Toile Goyardine','Cuir noir','Neuf'] },
-  belvedere: { brand:'Goyard',            name:'Sac Belvédère',       detail:'Plusieurs coloris',      tags:['Toile Goyardine','Neuf'] },
-  goyard:    { brand:'Goyard',            name:'Sacs Goyard',         detail:'Messager &amp; Belvédère', tags:[], isGoyard:true },
-  casquette: { brand:'Casquettes',        name:'Collection Caps',     detail:'Plusieurs modèles',      tags:['Taille unique','Neuf','Étiquettes incluses'] },
-  diorbag:   { brand:'Dior',              name:'Sacoche Dior',        detail:'Plusieurs modèles',      tags:['Toile Dior','Neuf'] },
-  guccibag:  { brand:'Gucci',             name:'Sacoche Gucci',       detail:'Plusieurs modèles',      tags:['Toile GG','Neuf'] },
-  lvbag:     { brand:'Louis Vuitton',     name:'Sacoche LV',          detail:'Plusieurs modèles',      tags:['Toile Monogram','Neuf'] },
-  sacfemme:  { brand:'Sacs Femme',        name:'Collection Femme',    detail:'Coach · Chanel · LV',    tags:[], isSacFemme:true },
-  vetements: { brand:'Vêtements',         name:'Collection Vêtements',detail:'T-shirts &amp; Sweats zippés', tags:[], isApparel:true },
+var ITEMS = {
+  omni9:     { brand:'Saucony Originals', name:'Pro Grid Omni 9',   detail:'Rose / Violet',        tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boite incluse'] },
+  gelnyc:    { brand:'Asics',             name:'Gel NYC',            detail:'Plusieurs coloris',    tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  cloudtilt: { brand:'On Running',        name:'Cloudtilt & Loewe', detail:'Plusieurs modeles',    tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  kayano:    { brand:'Asics',             name:'Gel-Kayano 14',     detail:'Argent / Blanc / Rose', tags:['Pointure US 8 - 9.5 F','Neuf','Boite incluse'] },
+  casquette: { brand:'Casquettes',        name:'Collection Caps',   detail:'Plusieurs modeles',    tags:['Taille unique','Neuf'] },
+  diorbag:   { brand:'Dior',              name:'Sacoche Dior',      detail:'Plusieurs modeles',    tags:['Neuf'] },
+  guccibag:  { brand:'Gucci',             name:'Sacoche Gucci',     detail:'Plusieurs modeles',    tags:['Neuf'] },
+  lvbag:     { brand:'Louis Vuitton',     name:'Sacoche LV',        detail:'Plusieurs modeles',    tags:['Neuf'] },
+  goyard:    { isGoyard:true },
+  sacfemme:  { isSacFemme:true },
+  vetements: { isVetements:true }
 };
 
-const APPAREL_BRANDS = [
-  { key:'blcg', label:'BLCG',        detail:'T-shirt Balenciaga',          tags:['Neuf'] },
-  { key:'cp',   label:'C.P. Company',detail:'T-shirt C.P. Company',        tags:['4 coloris','Neuf'] },
-  { key:'dior', label:'Dior',        detail:'T-shirt Dior',                tags:['6 modèles','Neuf'] },
-  { key:'lv',   label:'LV',          detail:'T-shirt Louis Vuitton',       tags:['12 modèles','Neuf'] },
-  { key:'prd',  label:'Prada',       detail:'T-shirt Prada',               tags:['Neuf'] },
-  { key:'si',   label:'Stone Island',detail:'T-shirt Stone Island',        tags:['6 modèles','Neuf'] },
-  { key:'brb',  label:'Burberry',    detail:'T-shirt Burberry',            tags:['3 modèles','Neuf'] },
-  { key:'casa', label:'Casablanca',  detail:'T-shirt Casablanca',          tags:['7 modèles','Neuf'] },
-  { key:'zip',  label:'Sweats Zippés',detail:'Sweat Zippé Burberry',       tags:['Noir &amp; Gris','Neuf'] },
+var GOYARD_TABS = [
+  { key:'goyard_mess', label:'Messager',  detail:'Sac Messager - Noir Chevron',      tags:['Toile Goyardine','Neuf'] },
+  { key:'goyard_belv', label:'Belvedere', detail:'Sac Belvedere - Plusieurs coloris',tags:['Toile Goyardine','Neuf'] }
 ];
 
-const SAC_FEMME_MODELS = [
-  { key:'sacfemme_coach',  label:'Coach',  detail:'Sac Coach — Plusieurs coloris',      tags:['Cuir','Neuf'] },
-  { key:'sacfemme_chanel', label:'Chanel', detail:'Sac Chanel — Plusieurs modèles',     tags:['Cuir matelassé','Neuf'] },
-  { key:'sacfemme_lv',     label:'LV',     detail:'Sac Louis Vuitton — Toile Monogram', tags:['Toile Monogram','Neuf'] },
+var FEMME_TABS = [
+  { key:'sacfemme_coach',  label:'Coach',  detail:'Sac Coach',  tags:['Neuf'] },
+  { key:'sacfemme_chanel', label:'Chanel', detail:'Sac Chanel', tags:['Neuf'] },
+  { key:'sacfemme_lv',     label:'LV',     detail:'Sac LV',     tags:['Neuf'] }
 ];
 
-const GOYARD_MODELS = [
-  { key:'goyard1',   label:'Messager',  detail:'Sac Messager — Noir Chevron',        tags:['Toile Goyardine','Cuir noir','Neuf'] },
-  { key:'belvedere', label:'Belvédère', detail:'Sac Belvédère — Plusieurs coloris',  tags:['Toile Goyardine','Neuf'] },
+var VET_TABS = [
+  { key:'vet_blcg', label:'BLCG',         detail:'T-shirt Balenciaga',   tags:['Neuf'] },
+  { key:'vet_cp',   label:'C.P. Company', detail:'T-shirt C.P. Company', tags:['Neuf'] },
+  { key:'vet_dior', label:'Dior',         detail:'T-shirt Dior',         tags:['Neuf'] },
+  { key:'vet_lv',   label:'LV',           detail:'T-shirt LV',           tags:['Neuf'] },
+  { key:'vet_prd',  label:'Prada',        detail:'T-shirt Prada',        tags:['Neuf'] },
+  { key:'vet_si',   label:'Stone Island', detail:'T-shirt Stone Island', tags:['Neuf'] },
+  { key:'vet_brb',  label:'Burberry',     detail:'T-shirt Burberry',     tags:['Neuf'] },
+  { key:'vet_casa', label:'Casablanca',   detail:'T-shirt Casablanca',   tags:['Neuf'] },
+  { key:'vet_zip',  label:'Sweat Zip',    detail:'Sweat Zippe Burberry', tags:['Neuf'] }
 ];
 
+var currentIdx = {};
+var activeTab = {};
 
-
-const currentIdx = {};
-
-function buildModal(id) {
-  const item = ITEMS[id];
-  if (item.isApparel) return buildApparelModal();
-  if (item.isGoyard) return buildGoyardModal();
-  if (item.isSacFemme) return buildSacFemmeModal();
-  const arr = photos[id] || [];
-  currentIdx[id] = 0;
-  return `
-    <div class="modal-overlay" id="overlay-${id}">
-      <div class="modal">
-        <div class="modal-header">
-          <div>
-            <div class="modal-brand">${item.brand}</div>
-            <div class="modal-name">${item.name}</div>
-            <div class="modal-detail">${item.detail}</div>
-          </div>
-          <button class="modal-close" onclick="closeGallery('${id}')">✕ Fermer</button>
-        </div>
-        ${buildMainZone(id, arr, 0)}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-${id}">${buildThumbsHTML(id, arr, 0)}</div></div>` : ''}
-        <div class="modal-info">${item.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
-        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
-      </div>
-    </div>`;
+function getTabsForId(id) {
+  if (id === 'goyard')    return GOYARD_TABS;
+  if (id === 'sacfemme')  return FEMME_TABS;
+  if (id === 'vetements') return VET_TABS;
+  return [];
 }
 
-function buildApparelModal() {
-  const activeBrandKey = window._activeApparelBrand || APPAREL_BRANDS[0].key;
-  const ab = APPAREL_BRANDS.find(b=>b.key===activeBrandKey) || APPAREL_BRANDS[0];
-  const arr = photos['vetements_'+activeBrandKey] || [];
-  currentIdx['vetements'] = 0;
-  const tabsHTML = APPAREL_BRANDS.map(b=>
-    `<button class="brand-tab ${b.key===activeBrandKey?'active':''}" onclick="switchApparelBrand('${b.key}')">${b.label}</button>`
-  ).join('');
-  return `
-    <div class="modal-overlay" id="overlay-vetements">
-      <div class="modal">
-        <div class="modal-header">
-          <div>
-            <div class="modal-brand">Vêtements</div>
-            <div class="modal-name" id="apparel-modal-name">${ab.label}</div>
-            <div class="modal-detail" id="apparel-modal-detail">${ab.detail}</div>
-          </div>
-          <button class="modal-close" onclick="closeGallery('vetements')">✕ Fermer</button>
-        </div>
-        <div class="brand-tabs">${tabsHTML}</div>
-        ${buildApparelMainZone(activeBrandKey, arr, 0)}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-vetements">${buildApparelThumbsHTML(activeBrandKey, arr, 0)}</div></div>` : '<div id="thumbs-vetements"></div>'}
-        <div class="modal-info" id="apparel-modal-info">${ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
-        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
-      </div>
-    </div>`;
-}
-
-function buildSacFemmeModal() {
-  const activeKey = window._activeSacFemme || SAC_FEMME_MODELS[0].key;
-  const sm = SAC_FEMME_MODELS.find(m=>m.key===activeKey) || SAC_FEMME_MODELS[0];
-  const arr = photos[activeKey] || [];
-  currentIdx['sacfemme'] = 0;
-  const tabsHTML = SAC_FEMME_MODELS.map(m=>
-    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchSacFemme('${m.key}')">${m.label}</button>`
-  ).join('');
-  const mainHTML = arr.length > 0
-    ? `<div class="main-img-wrap" id="sacfemme-main-wrap">
-        <img class="modal-main-img" id="main-sacfemme" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
-        <button class="nav-btn nav-prev hidden" onclick="navSacFemme(-1)">‹</button>
-        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navSacFemme(1)">›</button>
-      </div>`
-    : `<div class="modal-empty" id="sacfemme-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
-  return `
-    <div class="modal-overlay" id="overlay-sacfemme">
-      <div class="modal">
-        <div class="modal-header">
-          <div>
-            <div class="modal-brand">Sacs Femme</div>
-            <div class="modal-name" id="sacfemme-modal-name">${sm.label}</div>
-            <div class="modal-detail" id="sacfemme-modal-detail">${sm.detail}</div>
-          </div>
-          <button class="modal-close" onclick="closeGallery('sacfemme')">✕ Fermer</button>
-        </div>
-        <div class="brand-tabs">${tabsHTML}</div>
-        ${mainHTML}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-sacfemme">${buildSacFemmeThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-sacfemme"></div>'}
-        <div class="modal-info" id="sacfemme-modal-info">${sm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
-        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
-      </div>
-    </div>`;
-}
-
-function buildSacFemmeThumbsHTML(key, arr, activeIdx) {
-  return arr.map((src,i)=>`
-    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectSacFemme('${key}',${i})">
-      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
-    </div>`).join('') + (arr.length > 1 ? `<span class="photo-counter">${arr.length} photos</span>` : '');
-}
-
-function switchSacFemme(key) {
-  window._activeSacFemme = key;
-  const sm = SAC_FEMME_MODELS.find(m=>m.key===key);
-  const arr = photos[key] || [];
-  currentIdx['sacfemme'] = 0;
-  document.querySelectorAll('#overlay-sacfemme .brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===sm.label));
-  const nm = document.getElementById('sacfemme-modal-name'); if(nm) nm.textContent = sm.label;
-  const dt = document.getElementById('sacfemme-modal-detail'); if(dt) dt.textContent = sm.detail;
-  const info = document.getElementById('sacfemme-modal-info');
-  if(info) info.innerHTML = sm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
-  const tw = document.getElementById('thumbs-sacfemme');
-  if(tw) tw.innerHTML = arr.length > 1 ? buildSacFemmeThumbsHTML(key, arr, 0) : '';
-  const mainWrap = document.getElementById('sacfemme-main-wrap');
-  if (arr.length > 0 && mainWrap) {
-    const img = mainWrap.querySelector('img');
-    if (img) { img.src = arr[0]; }
-    else {
-      mainWrap.outerHTML = `<div class="main-img-wrap" id="sacfemme-main-wrap">
-        <img class="modal-main-img" id="main-sacfemme" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
-        <button class="nav-btn nav-prev hidden" onclick="navSacFemme(-1)">‹</button>
-        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navSacFemme(1)">›</button>
-      </div>`;
-    }
+function getTab(tabs, key) {
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i].key === key) return tabs[i];
   }
-}
-
-function selectSacFemme(key, idx) {
-  const arr = photos[key] || [];
-  if (idx < 0 || idx >= arr.length) return;
-  currentIdx['sacfemme'] = idx;
-  const img = document.getElementById('main-sacfemme');
-  if (img) img.src = arr[idx];
-  document.querySelectorAll('#thumbs-sacfemme .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
-  const overlay = document.getElementById('overlay-sacfemme');
-  if (overlay) {
-    const prev = overlay.querySelector('.nav-prev');
-    const next = overlay.querySelector('.nav-next');
-    if (prev) prev.classList.toggle('hidden', idx===0);
-    if (next) next.classList.toggle('hidden', idx===arr.length-1);
-  }
-}
-
-function navSacFemme(dir) {
-  const key = window._activeSacFemme || SAC_FEMME_MODELS[0].key;
-  const arr = photos[key] || [];
-  const newIdx = (currentIdx['sacfemme']||0) + dir;
-  if (newIdx >= 0 && newIdx < arr.length) selectSacFemme(key, newIdx);
-}
-
-
-  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
-  const gm = GOYARD_MODELS.find(m=>m.key===activeKey) || GOYARD_MODELS[0];
-  const arr = photos[activeKey] || [];
-  currentIdx['goyard'] = 0;
-  const tabsHTML = GOYARD_MODELS.map(m=>
-    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchGoyardModel('${m.key}')">${m.label}</button>`
-  ).join('');
-  const mainHTML = arr.length > 0
-    ? `<div class="main-img-wrap" id="goyard-main-wrap">
-        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
-        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
-        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
-      </div>`
-    : `<div class="modal-empty" id="goyard-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
-  return `
-    <div class="modal-overlay" id="overlay-goyard">
-      <div class="modal">
-        <div class="modal-header">
-          <div>
-            <div class="modal-brand">Goyard</div>
-            <div class="modal-name" id="goyard-modal-name">${gm.label}</div>
-            <div class="modal-detail" id="goyard-modal-detail">${gm.detail}</div>
-          </div>
-          <button class="modal-close" onclick="closeGallery('goyard')">✕ Fermer</button>
-        </div>
-        <div class="brand-tabs">${tabsHTML}</div>
-        ${mainHTML}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-goyard">${buildGoyardThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-goyard"></div>'}
-        <div class="modal-info" id="goyard-modal-info">${gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
-        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
-      </div>
-    </div>`;
-}
-
-function buildGoyardThumbsHTML(modelKey, arr, activeIdx) {
-  return arr.map((src,i)=>`
-    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectGoyardPhoto('${modelKey}',${i})">
-      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
-    </div>`).join('') + (arr.length > 1 ? `<span class="photo-counter">${arr.length} photos</span>` : '');
-}
-
-function switchGoyardModel(modelKey) {
-  window._activeGoyardModel = modelKey;
-  const gm = GOYARD_MODELS.find(m=>m.key===modelKey);
-  const arr = photos[modelKey] || [];
-  currentIdx['goyard'] = 0;
-  document.querySelectorAll('#overlay-goyard .brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===gm.label));
-  const nm = document.getElementById('goyard-modal-name'); if(nm) nm.textContent = gm.label;
-  const dt = document.getElementById('goyard-modal-detail'); if(dt) dt.textContent = gm.detail;
-  const info = document.getElementById('goyard-modal-info');
-  if(info) info.innerHTML = gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
-  const tw = document.getElementById('thumbs-goyard');
-  if(tw) tw.innerHTML = arr.length > 1 ? buildGoyardThumbsHTML(modelKey, arr, 0) : '';
-  const mainWrap = document.getElementById('goyard-main-wrap');
-  if (arr.length > 0) {
-    if (mainWrap && mainWrap.tagName==='DIV' && mainWrap.querySelector('img')) {
-      mainWrap.querySelector('img').src = arr[0];
-    } else if (mainWrap) {
-      mainWrap.outerHTML = `<div class="main-img-wrap" id="goyard-main-wrap">
-        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
-        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
-        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
-      </div>`;
-    }
-  }
-}
-
-function selectGoyardPhoto(modelKey, idx) {
-  const arr = photos[modelKey] || [];
-  if (idx < 0 || idx >= arr.length) return;
-  currentIdx['goyard'] = idx;
-  const img = document.getElementById('main-goyard');
-  if (img) img.src = arr[idx];
-  document.querySelectorAll('#thumbs-goyard .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
-  const overlay = document.getElementById('overlay-goyard');
-  if (overlay) {
-    const prev = overlay.querySelector('.nav-prev');
-    const next = overlay.querySelector('.nav-next');
-    if (prev) prev.classList.toggle('hidden', idx===0);
-    if (next) next.classList.toggle('hidden', idx===arr.length-1);
-  }
-}
-
-function navGoyardPhoto(dir) {
-  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
-  const arr = photos[activeKey] || [];
-  const newIdx = (currentIdx['goyard']||0) + dir;
-  if (newIdx >= 0 && newIdx < arr.length) selectGoyardPhoto(activeKey, newIdx);
-}
-
-function buildGoyardModal() {
-  const activeKey = window._activeGoyardModel || GOYARD_MODELS[0].key;
-  const gm = GOYARD_MODELS.find(m=>m.key===activeKey) || GOYARD_MODELS[0];
-  const arr = photos[activeKey] || [];
-  currentIdx['goyard'] = 0;
-  const tabsHTML = GOYARD_MODELS.map(m=>
-    `<button class="brand-tab ${m.key===activeKey?'active':''}" onclick="switchGoyardModel('${m.key}')">${m.label}</button>`
-  ).join('');
-  const mainHTML = arr.length > 0
-    ? `<div class="main-img-wrap" id="goyard-main-wrap">
-        <img class="modal-main-img" id="main-goyard" src="${arr[0]}" alt="Photo 1" onerror="this.style.opacity='0.1'"/>
-        <button class="nav-btn nav-prev hidden" onclick="navGoyardPhoto(-1)">‹</button>
-        <button class="nav-btn nav-next ${arr.length>1?'':'hidden'}" onclick="navGoyardPhoto(1)">›</button>
-      </div>`
-    : `<div class="modal-empty" id="goyard-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
-  return `
-    <div class="modal-overlay" id="overlay-goyard">
-      <div class="modal">
-        <div class="modal-header">
-          <div>
-            <div class="modal-brand">Goyard</div>
-            <div class="modal-name" id="goyard-modal-name">${gm.label}</div>
-            <div class="modal-detail" id="goyard-modal-detail">${gm.detail}</div>
-          </div>
-          <button class="modal-close" onclick="closeGallery('goyard')">✕ Fermer</button>
-        </div>
-        <div class="brand-tabs">${tabsHTML}</div>
-        ${mainHTML}
-        ${arr.length > 1 ? `<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-goyard">${buildGoyardThumbsHTML(activeKey, arr, 0)}</div></div>` : '<div id="thumbs-goyard"></div>'}
-        <div class="modal-info" id="goyard-modal-info">${gm.tags.map(t=>`<span class="info-tag">${t}</span>`).join('')}</div>
-        <div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>
-      </div>
-    </div>`;
-}
-
-function buildApparelMainZone(brandKey, arr, idx) {
-  if (!arr.length) return `<div class="modal-empty" id="apparel-main-wrap"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientôt disponibles</div></div>`;
-  return `<div class="main-img-wrap" id="apparel-main-wrap">
-    <img class="modal-main-img" id="main-vetements" src="${arr[idx]}" alt="Photo ${idx+1}" onerror="this.style.opacity='0.1'"/>
-    <button class="nav-btn nav-prev ${idx===0?'hidden':''}" onclick="navApparelPhoto('${brandKey}',-1)">‹</button>
-    <button class="nav-btn nav-next ${idx===arr.length-1?'hidden':''}" onclick="navApparelPhoto('${brandKey}',1)">›</button>
-  </div>`;
-}
-
-function buildThumbsHTML(id, arr, activeIdx) {
-  return arr.map((src,i)=>`
-    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectPhoto('${id}',${i})">
-      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
-    </div>`).join('') + `<span class="photo-counter">${arr.length} photos</span>`;
-}
-
-function buildApparelThumbsHTML(brandKey, arr, activeIdx) {
-  return arr.map((src,i)=>`
-    <div class="thumb ${i===activeIdx?'active':''}" onclick="selectApparelPhoto('${brandKey}',${i})">
-      <img src="${src}" alt="Photo ${i+1}" onerror="this.style.opacity='0.1'"/>
-    </div>`).join('') + `<span class="photo-counter">${arr.length} photos</span>`;
+  return tabs[0];
 }
 
 function openGallery(id) {
-  if (id==='vetements') window._activeApparelBrand = APPAREL_BRANDS[0].key;
-  if (id==='goyard') window._activeGoyardModel = GOYARD_MODELS[0].key;
-  if (id==='sacfemme') window._activeSacFemme = SAC_FEMME_MODELS[0].key;
-  const ex = document.getElementById('overlay-'+id);
+  var tabs = getTabsForId(id);
+  if (tabs.length > 0) activeTab[id] = tabs[0].key;
+  currentIdx[id] = 0;
+  var ex = document.getElementById('overlay-' + id);
   if (ex) ex.remove();
   document.getElementById('modals-container').insertAdjacentHTML('beforeend', buildModal(id));
-  document.getElementById('overlay-'+id).classList.add('open');
+  document.getElementById('overlay-' + id).classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeGallery(id) {
-  const o = document.getElementById('overlay-'+id);
+  var o = document.getElementById('overlay-' + id);
   if (o) o.classList.remove('open');
   document.body.style.overflow = '';
 }
 
+function buildModal(id) {
+  var item = ITEMS[id];
+  var tabs = getTabsForId(id);
+  if (tabs.length > 0) return buildTabModal(id, tabs);
+  var arr = photos[id] || [];
+  var tagsHtml = '';
+  for (var i = 0; i < item.tags.length; i++) {
+    tagsHtml += '<span class="info-tag">' + item.tags[i] + '</span>';
+  }
+  return '<div class="modal-overlay" id="overlay-' + id + '">' +
+    '<div class="modal">' +
+      '<div class="modal-header">' +
+        '<div>' +
+          '<div class="modal-brand">' + item.brand + '</div>' +
+          '<div class="modal-name">' + item.name + '</div>' +
+          '<div class="modal-detail">' + item.detail + '</div>' +
+        '</div>' +
+        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">&#10005; Fermer</button>' +
+      '</div>' +
+      buildMainHTML(id, arr, 0) +
+      (arr.length > 1 ? '<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-' + id + '">' + buildThumbs(id, arr, 0) + '</div></div>' : '') +
+      '<div class="modal-info">' + tagsHtml + '</div>' +
+      '<div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>' +
+    '</div>' +
+  '</div>';
+}
+
+function buildTabModal(id, tabs) {
+  var key = activeTab[id] || tabs[0].key;
+  var tab = getTab(tabs, key);
+  var arr = photos[key] || [];
+  var tabsHtml = '';
+  for (var i = 0; i < tabs.length; i++) {
+    var t = tabs[i];
+    tabsHtml += '<button class="brand-tab' + (t.key === key ? ' active' : '') + '" onclick="switchTab(\'' + id + '\',\'' + t.key + '\')">' + t.label + '</button>';
+  }
+  var tagsHtml = '';
+  for (var j = 0; j < tab.tags.length; j++) {
+    tagsHtml += '<span class="info-tag">' + tab.tags[j] + '</span>';
+  }
+  var titles = { goyard:'Goyard', sacfemme:'Sacs Femme', vetements:'Vetements' };
+  return '<div class="modal-overlay" id="overlay-' + id + '">' +
+    '<div class="modal">' +
+      '<div class="modal-header">' +
+        '<div>' +
+          '<div class="modal-brand">' + (titles[id] || id) + '</div>' +
+          '<div class="modal-name" id="tab-name-' + id + '">' + tab.label + '</div>' +
+          '<div class="modal-detail" id="tab-detail-' + id + '">' + tab.detail + '</div>' +
+        '</div>' +
+        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">&#10005; Fermer</button>' +
+      '</div>' +
+      '<div class="brand-tabs" id="tab-bar-' + id + '">' + tabsHtml + '</div>' +
+      '<div id="tab-main-' + id + '">' + buildMainHTML(id, arr, 0) + '</div>' +
+      '<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-' + id + '">' + (arr.length > 1 ? buildThumbs(id, arr, 0) : '') + '</div></div>' +
+      '<div class="modal-info" id="tab-info-' + id + '">' + tagsHtml + '</div>' +
+      '<div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>' +
+    '</div>' +
+  '</div>';
+}
+
+function buildMainHTML(id, arr, idx) {
+  if (!arr || !arr.length) {
+    return '<div class="modal-empty"><div class="modal-empty-icon">&#128247;</div><div class="modal-empty-text">Photos bientot disponibles</div></div>';
+  }
+  return '<div class="main-img-wrap">' +
+    '<img class="modal-main-img" id="main-' + id + '" src="' + arr[idx] + '" alt="Photo" onerror="this.style.opacity=\'0.1\'"/>' +
+    '<button class="nav-btn nav-prev' + (idx === 0 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',-1)">&#8249;</button>' +
+    '<button class="nav-btn nav-next' + (idx >= arr.length - 1 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',1)">&#8250;</button>' +
+  '</div>';
+}
+
+function buildThumbs(id, arr, activeIdx) {
+  var html = '';
+  for (var i = 0; i < arr.length; i++) {
+    html += '<div class="thumb' + (i === activeIdx ? ' active' : '') + '" onclick="selectPhoto(\'' + id + '\',' + i + ')">' +
+      '<img src="' + arr[i] + '" onerror="this.style.opacity=\'0.1\'"/>' +
+    '</div>';
+  }
+  html += '<span class="photo-counter">' + arr.length + ' photos</span>';
+  return html;
+}
+
+function switchTab(id, key) {
+  activeTab[id] = key;
+  currentIdx[id] = 0;
+  var tabs = getTabsForId(id);
+  var tab = getTab(tabs, key);
+  var arr = photos[key] || [];
+  var btns = document.querySelectorAll('#tab-bar-' + id + ' .brand-tab');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.toggle('active', btns[i].textContent.trim() === tab.label);
+  }
+  var nm = document.getElementById('tab-name-' + id);
+  if (nm) nm.textContent = tab.label;
+  var dt = document.getElementById('tab-detail-' + id);
+  if (dt) dt.textContent = tab.detail;
+  var info = document.getElementById('tab-info-' + id);
+  if (info) {
+    var tagsHtml = '';
+    for (var j = 0; j < tab.tags.length; j++) {
+      tagsHtml += '<span class="info-tag">' + tab.tags[j] + '</span>';
+    }
+    info.innerHTML = tagsHtml;
+  }
+  var mainWrap = document.getElementById('tab-main-' + id);
+  if (mainWrap) mainWrap.innerHTML = buildMainHTML(id, arr, 0);
+  var tw = document.getElementById('thumbs-' + id);
+  if (tw) tw.innerHTML = arr.length > 1 ? buildThumbs(id, arr, 0) : '';
+}
+
+function getCurrentArr(id) {
+  var key = activeTab[id];
+  if (key) return photos[key] || [];
+  return photos[id] || [];
+}
+
 function selectPhoto(id, idx) {
-  const arr = photos[id] || [];
+  var arr = getCurrentArr(id);
   if (idx < 0 || idx >= arr.length) return;
   currentIdx[id] = idx;
-  const img = document.getElementById('main-'+id);
+  var img = document.getElementById('main-' + id);
   if (img) img.src = arr[idx];
-  document.querySelectorAll('#thumbs-'+id+' .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
-  const overlay = document.getElementById('overlay-'+id);
+  var thumbs = document.querySelectorAll('#thumbs-' + id + ' .thumb');
+  for (var i = 0; i < thumbs.length; i++) {
+    thumbs[i].classList.toggle('active', i === idx);
+  }
+  var overlay = document.getElementById('overlay-' + id);
   if (overlay) {
-    const prev = overlay.querySelector('.nav-prev');
-    const next = overlay.querySelector('.nav-next');
-    if (prev) prev.classList.toggle('hidden', idx===0);
-    if (next) next.classList.toggle('hidden', idx===arr.length-1);
+    var prev = overlay.querySelector('.nav-prev');
+    var next = overlay.querySelector('.nav-next');
+    if (prev) prev.classList.toggle('hidden', idx === 0);
+    if (next) next.classList.toggle('hidden', idx >= arr.length - 1);
   }
 }
 
 function navPhoto(id, dir) {
-  const arr = photos[id] || [];
-  const newIdx = (currentIdx[id]||0) + dir;
+  var arr = getCurrentArr(id);
+  var newIdx = (currentIdx[id] || 0) + dir;
   if (newIdx >= 0 && newIdx < arr.length) selectPhoto(id, newIdx);
-}
-
-function selectApparelPhoto(brandKey, idx) {
-  const arr = photos['vetements_'+brandKey] || [];
-  if (idx < 0 || idx >= arr.length) return;
-  currentIdx['vetements'] = idx;
-  const img = document.getElementById('main-vetements');
-  if (img) img.src = arr[idx];
-  document.querySelectorAll('#thumbs-vetements .thumb').forEach((el,i)=>el.classList.toggle('active',i===idx));
-  const overlay = document.getElementById('overlay-vetements');
-  if (overlay) {
-    const prev = overlay.querySelector('.nav-prev');
-    const next = overlay.querySelector('.nav-next');
-    if (prev) prev.classList.toggle('hidden', idx===0);
-    if (next) next.classList.toggle('hidden', idx===arr.length-1);
-  }
-}
-
-function navApparelPhoto(brandKey, dir) {
-  const arr = photos['vetements_'+brandKey] || [];
-  const newIdx = (currentIdx['vetements']||0) + dir;
-  if (newIdx >= 0 && newIdx < arr.length) selectApparelPhoto(brandKey, newIdx);
-}
-
-function switchApparelBrand(brandKey) {
-  window._activeApparelBrand = brandKey;
-  const ab = APPAREL_BRANDS.find(b=>b.key===brandKey);
-  const arr = photos['vetements_'+brandKey] || [];
-  currentIdx['vetements'] = 0;
-  document.querySelectorAll('.brand-tab').forEach(t=>t.classList.toggle('active', t.textContent.trim()===ab.label));
-  const nm = document.getElementById('apparel-modal-name'); if(nm) nm.textContent = ab.label;
-  const dt = document.getElementById('apparel-modal-detail'); if(dt) dt.textContent = ab.detail;
-  const info = document.getElementById('apparel-modal-info');
-  if(info) info.innerHTML = ab.tags.map(t=>`<span class="info-tag">${t}</span>`).join('');
-  const mainWrap = document.getElementById('apparel-main-wrap');
-  if (mainWrap) mainWrap.outerHTML = buildApparelMainZone(brandKey, arr, 0);
-  const tw = document.getElementById('thumbs-vetements');
-  if (tw) tw.innerHTML = arr.length > 1 ? buildApparelThumbsHTML(brandKey, arr, 0) : '';
 }
 
 function contactUs() {
