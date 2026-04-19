@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RxLuxury — Admin</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-box{background:#111;border:0.5px solid #222;border-radius:16px;padding:40px;width:100%;max-width:400px;text-align:center;}
+.login-logo{font-size:32px;font-weight:900;color:#fff;margin-bottom:4px;}
+.login-logo span{color:#c8a96e;}
+.login-sub{font-size:11px;letter-spacing:4px;color:#555;text-transform:uppercase;margin-bottom:32px;}
+.login-input{width:100%;background:#1a1a1a;border:0.5px solid #333;border-radius:8px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;outline:none;}
+.login-input:focus{border-color:#c8a96e;}
+.login-btn{width:100%;background:#c8a96e;color:#0a0a0a;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
+.login-btn:hover{opacity:0.9;}
+.login-error{color:#e24b4a;font-size:12px;margin-top:8px;}
+
+.admin-screen{display:none;padding:24px;max-width:1000px;margin:0 auto;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:0.5px solid #1a1a1a;}
+.admin-title{font-size:24px;font-weight:900;color:#fff;}
+.admin-title span{color:#c8a96e;}
+.admin-logout{background:transparent;border:0.5px solid #333;color:#888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;}
+.admin-logout:hover{border-color:#c8a96e;color:#c8a96e;}
+
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{background:#111;border:0.5px solid #1a1a1a;border-radius:12px;padding:16px 20px;}
+.stat-label{font-size:10px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:6px;}
+.stat-value{font-size:28px;font-weight:700;color:#c8a96e;}
+.stat-sub{font-size:11px;color:#444;margin-top:2px;}
+
+.orders-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:12px;letter-spacing:1px;}
+.order-card{background:#111;border:0.5px solid #1a1a1a;border-radius:12px;padding:20px;margin-bottom:12px;}
+.order-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.order-num{font-size:11px;letter-spacing:2px;color:#c8a96e;text-transform:uppercase;font-weight:600;}
+.order-date{font-size:10px;color:#444;letter-spacing:1px;}
+.order-contact{display:flex;gap:16px;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
+.order-contact-item{font-size:11px;color:#888;}
+.order-contact-item span{color:#fff;font-weight:600;}
+.order-items{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.order-item-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:6px 0;border-bottom:0.5px solid #1a1a1a;}
+.order-item-row:last-child{border-bottom:none;}
+.order-item-name{color:#ccc;}
+.order-item-size{color:#666;font-size:11px;margin-left:8px;}
+.order-item-price{color:#c8a96e;font-weight:600;}
+.order-total{display:flex;justify-content:space-between;padding-top:10px;border-top:0.5px solid #2a2a2a;}
+.order-total-label{font-size:12px;color:#666;text-transform:uppercase;letter-spacing:2px;}
+.order-total-value{font-size:16px;font-weight:700;color:#c8a96e;}
+.order-address{font-size:11px;color:#555;margin-top:8px;padding:8px 12px;background:#141414;border-radius:6px;line-height:1.6;}
+.badge-new{background:#c8a96e22;color:#c8a96e;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:20px;text-transform:uppercase;}
+.badge-done{background:#1d9e7522;color:#1d9e75;font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:20px;text-transform:uppercase;}
+.mark-btn{background:transparent;border:0.5px solid #333;color:#666;font-size:10px;padding:4px 10px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;letter-spacing:1px;}
+.mark-btn:hover{border-color:#1d9e75;color:#1d9e75;}
+.no-orders{text-align:center;padding:60px 20px;color:#333;font-size:14px;letter-spacing:2px;}
+.refresh-btn{background:transparent;border:0.5px solid #c8a96e55;color:#c8a96e;padding:8px 20px;border-radius:20px;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;margin-bottom:16px;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Rx<span>Luxury</span></div>
+    <div class="login-sub">Espace Admin</div>
+    <input class="login-input" type="password" id="pwdInput" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')checkLogin()"/>
+    <button class="login-btn" onclick="checkLogin()">Connexion</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-screen" id="adminScreen">
+  <div class="admin-header">
+    <div class="admin-title">Rx<span>Luxury</span> — Commandes</div>
+    <button class="admin-logout" onclick="logout()">Déconnexion</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total commandes</div>
+      <div class="stat-value" id="statTotal">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Nouvelles</div>
+      <div class="stat-value" id="statNew">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Chiffre d'affaires</div>
+      <div class="stat-value" id="statCA">0€</div>
+    </div>
+  </div>
+
+  <button class="refresh-btn" onclick="loadOrders()">↻ Actualiser</button>
+  <div class="orders-title">Toutes les commandes</div>
+  <div id="ordersList"><div class="no-orders">Chargement...</div></div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQKTxZIavC-29TGIfR7v9Sg4Knlz6oawM",
+  authDomain: "rxluxury-fbebb.firebaseapp.com",
+  databaseURL: "https://rxluxury-fbebb-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "rxluxury-fbebb",
+  storageBucket: "rxluxury-fbebb.firebasestorage.app",
+  messagingSenderId: "99568726381",
+  appId: "1:99568726381:web:e089448b450bddf108aa64"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const ADMIN_PWD = 'rxluxury2024';
+
+window.checkLogin = function() {
+  var pwd = document.getElementById('pwdInput').value;
+  if (pwd === ADMIN_PWD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    window.loadOrders();
+  } else {
+    document.getElementById('loginError').textContent = 'Mot de passe incorrect';
+  }
+};
+
+window.logout = function() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminScreen').style.display = 'none';
+  document.getElementById('pwdInput').value = '';
+};
+
+window.loadOrders = function() {
+  var ordersRef = ref(db, 'commandes');
+  onValue(ordersRef, function(snapshot) {
+    var data = snapshot.val();
+    var list = document.getElementById('ordersList');
+    if (!data) { list.innerHTML = '<div class="no-orders">Aucune commande pour le moment</div>'; return; }
+    var orders = Object.entries(data).sort(function(a,b){ return b[1].timestamp - a[1].timestamp; });
+    var total = orders.length;
+    var newCount = orders.filter(function(o){ return !o[1].done; }).length;
+    var ca = orders.reduce(function(s,o){ return s + (o[1].total||0); }, 0);
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statNew').textContent = newCount;
+    document.getElementById('statCA').textContent = ca + 'EUR';
+    list.innerHTML = orders.map(function(entry) {
+      var id = entry[0]; var o = entry[1];
+      var itemsHtml = (o.articles||[]).map(function(a) {
+        return '<div class="order-item-row"><div><span class="order-item-name">' + a.nom + '</span><span class="order-item-size">' + (a.taille||'-') + '</span></div><div class="order-item-price">' + a.prix + 'EUR</div></div>';
+      }).join('');
+      var date = o.timestamp ? new Date(o.timestamp).toLocaleString('fr-FR') : '';
+      return '<div class="order-card">' +
+        '<div class="order-header">' +
+          '<div><div class="order-num">Commande #' + o.numero + '</div><div class="order-date">' + date + '</div></div>' +
+          '<div style="display:flex;gap:8px;align-items:center;">' +
+            (o.done ? '<span class="badge-done">Traitée</span>' : '<span class="badge-new">Nouvelle</span>') +
+            (!o.done ? '<button class="mark-btn" onclick="markDone(\'' + id + '\')">Marquer traitée</button>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="order-contact">' +
+          '<div class="order-contact-item">Snap: <span>' + (o.snap||'-') + '</span></div>' +
+          '<div class="order-contact-item">Tel: <span>' + (o.telephone||'-') + '</span></div>' +
+        '</div>' +
+        '<div class="order-items">' + itemsHtml + '</div>' +
+        '<div class="order-total"><div class="order-total-label">Total</div><div class="order-total-value">' + (o.total||0) + ' EUR</div></div>' +
+        '<div class="order-address">Adresse: ' + (o.adresse||'-') + ' — ' + (o.ville||'-') + ' ' + (o.codePostal||'-') + '</div>' +
+      '</div>';
+    }).join('');
+  });
+};
+
+window.markDone = function(id) {
+  update(ref(db, 'commandes/' + id), { done: true });
+};
+</script>
+</body>
+</html>

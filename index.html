@@ -77,6 +77,84 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
 .nav-prev{left:12px;}
 .nav-next{right:12px;}
 .nav-btn.hidden{display:none;}
+.price-tag{display:inline-block;background:#c8a96e;color:#0a0a0a;font-size:11px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-top:2px;width:fit-content;}
+.price-range{font-size:10px;color:#c8a96e;font-weight:600;margin-top:2px;letter-spacing:1px;}
+.modal-price{display:inline-block;background:#c8a96e;color:#0a0a0a;font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px;margin-top:6px;}
+
+/* PANIER FLOTTANT */
+.cart-bubble{position:fixed;bottom:24px;right:24px;background:#c8a96e;color:#0a0a0a;width:56px;height:56px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:999;box-shadow:0 4px 20px rgba(200,169,110,0.4);transition:transform 0.2s;}
+.cart-bubble:hover{transform:scale(1.08);}
+.cart-bubble-icon{font-size:20px;line-height:1;}
+.cart-bubble-count{font-size:10px;font-weight:700;line-height:1;}
+.cart-bubble.empty{display:none;}
+
+/* MODAL PANIER */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:2000;overflow-y:auto;padding:20px;}
+.cart-overlay.open{display:block;}
+.cart-modal{background:#0f0f0f;border:0.5px solid #2a2a2a;border-radius:12px;max-width:520px;margin:0 auto;overflow:hidden;}
+.cart-header{padding:20px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid #1e1e1e;}
+.cart-title{font-size:18px;font-weight:700;color:#fff;}
+.cart-close{background:#1a1a1a;border:0.5px solid #333;color:#aaa;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:20px;cursor:pointer;font-family:'Inter',sans-serif;}
+.cart-close:hover{background:#c8a96e;color:#0a0a0a;}
+.cart-items{padding:0;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:0.5px solid #1a1a1a;}
+.cart-item-info{display:flex;flex-direction:column;gap:3px;}
+.cart-item-name{font-size:13px;font-weight:600;color:#fff;}
+.cart-item-size{font-size:11px;color:#666;}
+.cart-item-right{display:flex;align-items:center;gap:12px;}
+.cart-item-price{font-size:13px;font-weight:700;color:#c8a96e;}
+.cart-remove{background:none;border:none;color:#444;cursor:pointer;font-size:16px;padding:2px 6px;border-radius:4px;}
+.cart-remove:hover{color:#e24b4a;}
+.cart-empty{padding:40px 24px;text-align:center;color:#333;font-size:13px;letter-spacing:2px;}
+.cart-total-bar{padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-top:0.5px solid #2a2a2a;background:#111;}
+.cart-total-label{font-size:11px;letter-spacing:3px;color:#666;text-transform:uppercase;}
+.cart-total-value{font-size:20px;font-weight:700;color:#c8a96e;}
+.cart-checkout-btn{width:calc(100% - 48px);margin:0 24px 24px;background:#c8a96e;color:#0a0a0a;border:none;border-radius:20px;padding:14px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
+.cart-checkout-btn:hover{opacity:0.9;}
+
+/* MODAL AJOUT TAILLE */
+.size-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;}
+.size-overlay.open{display:flex;}
+.size-modal{background:#0f0f0f;border:0.5px solid #2a2a2a;border-radius:12px;width:100%;max-width:400px;overflow:hidden;}
+.size-header{padding:20px 24px;border-bottom:0.5px solid #1e1e1e;}
+.size-title{font-size:16px;font-weight:700;color:#fff;}
+.size-subtitle{font-size:11px;color:#555;margin-top:4px;}
+.size-body{padding:20px 24px;}
+.size-label{font-size:10px;letter-spacing:3px;color:#c8a96e;text-transform:uppercase;margin-bottom:8px;}
+.size-select{width:100%;background:#1a1a1a;border:0.5px solid #333;border-radius:8px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:16px;outline:none;}
+.size-select:focus{border-color:#c8a96e;}
+.size-confirm{width:100%;background:#c8a96e;color:#0a0a0a;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:8px;}
+.size-cancel{width:100%;background:transparent;color:#555;border:0.5px solid #2a2a2a;border-radius:8px;padding:10px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* FORMULAIRE COMMANDE */
+.checkout-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:3000;overflow-y:auto;padding:20px;}
+.checkout-overlay.open{display:block;}
+.checkout-modal{background:#0f0f0f;border:0.5px solid #2a2a2a;border-radius:12px;max-width:520px;margin:0 auto;overflow:hidden;}
+.checkout-header{padding:20px 24px;border-bottom:0.5px solid #1e1e1e;}
+.checkout-title{font-size:18px;font-weight:700;color:#fff;}
+.checkout-sub{font-size:11px;color:#555;margin-top:4px;}
+.checkout-body{padding:24px;}
+.form-label{font-size:10px;letter-spacing:3px;color:#c8a96e;text-transform:uppercase;margin-bottom:6px;display:block;}
+.form-input{width:100%;background:#1a1a1a;border:0.5px solid #333;border-radius:8px;padding:12px 16px;color:#fff;font-size:13px;font-family:'Inter',sans-serif;margin-bottom:16px;outline:none;}
+.form-input:focus{border-color:#c8a96e;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.checkout-submit{width:100%;background:#c8a96e;color:#0a0a0a;border:none;border-radius:20px;padding:14px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px;}
+.checkout-back{width:100%;background:transparent;color:#555;border:0.5px solid #2a2a2a;border-radius:20px;padding:12px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;margin-top:8px;}
+
+/* CONFIRMATION */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:3000;align-items:center;justify-content:center;padding:20px;}
+.confirm-overlay.open{display:flex;}
+.confirm-modal{background:#0f0f0f;border:0.5px solid #2a2a2a;border-radius:12px;max-width:420px;width:100%;padding:40px 32px;text-align:center;}
+.confirm-icon{font-size:48px;margin-bottom:16px;}
+.confirm-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;}
+.confirm-num{font-size:28px;font-weight:900;color:#c8a96e;margin:16px 0;}
+.confirm-sub{font-size:13px;color:#555;line-height:1.7;}
+.confirm-close{margin-top:24px;background:#c8a96e;color:#0a0a0a;border:none;border-radius:20px;padding:12px 32px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
+
+/* ADD TO CART BTN */
+.add-cart-bar{padding:14px 24px;border-top:0.5px solid #1e1e1e;display:flex;gap:8px;}
+.add-cart-btn{flex:1;background:#c8a96e;color:#0a0a0a;border:none;border-radius:20px;padding:12px;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
+.add-cart-btn:hover{opacity:0.9;}
 </style>
 </head>
 <body>
@@ -101,13 +179,13 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
       <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
     <div class="brands-row">
-      <span class="brand-pill">Saucony</span>
-      <span class="brand-pill">Asics NYC</span>
-      <span class="brand-pill">Asics Kayano</span>
-      <span class="brand-pill">On Cloudtilt</span>
-      <span class="brand-pill">On Loewe</span>
-      <span class="brand-pill">Salomon</span>
-      <span class="brand-pill">Yeezy 700</span>
+      <span class="brand-pill">Saucony 70&euro;</span>
+      <span class="brand-pill">Asics NYC 70&euro;</span>
+      <span class="brand-pill">Asics Kayano 70&euro;</span>
+      <span class="brand-pill">On Cloudtilt 70&euro;</span>
+      <span class="brand-pill">On Loewe 80&euro;</span>
+      <span class="brand-pill">Salomon 70&euro;</span>
+      <span class="brand-pill">Yeezy 700 70&euro;</span>
     </div>
   </div>
 
@@ -120,9 +198,9 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
       <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
     <div class="brands-row">
-      <span class="brand-pill">Mind</span>
-      <span class="brand-pill">Oran</span>
-      <span class="brand-pill">Chypre</span>
+      <span class="brand-pill">Mind 80&euro;</span>
+      <span class="brand-pill">Oran 60&euro;</span>
+      <span class="brand-pill">Chypre 90&euro;</span>
     </div>
   </div>
 
@@ -135,11 +213,12 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
       <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
     <div class="brands-row">
-      <span class="brand-pill">Dior B22</span>
-      <span class="brand-pill">Dior B25</span>
-      <span class="brand-pill">Dior B30</span>
-      <span class="brand-pill">Off-White</span>
-      <span class="brand-pill">Bouncing</span>
+      <span class="brand-pill">Dior B22 110&euro;</span>
+      <span class="brand-pill">Dior B25 130&euro;</span>
+      <span class="brand-pill">Dior B30 130&euro;</span>
+      <span class="brand-pill">Dior B30 Stone 150&euro;</span>
+      <span class="brand-pill">Off-White 100&euro;</span>
+      <span class="brand-pill">Bouncing 140&euro;</span>
     </div>
   </div>
 
@@ -150,64 +229,42 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
       <span class="card-brand">Goyard</span>
       <span class="card-name">Sacs Goyard</span>
       <span class="card-detail">Messager &amp; Belv&eacute;d&egrave;re</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#1a1a1a;"></div>
-        <div class="dot" style="background:#8b7355;"></div>
-        <div class="dot" style="background:#aaa;"></div>
-      </div>
+      <span class="price-range">Belv&eacute;d&egrave;re 90&euro; &mdash; Messager d&egrave;s 120&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('casquette')">
       <span class="card-brand">Casquettes</span>
       <span class="card-name">Collection Caps</span>
       <span class="card-detail">Plusieurs mod&egrave;les</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#8ab0d4;"></div>
-        <div class="dot" style="background:#e8a0b0;"></div>
-        <div class="dot" style="background:#333;"></div>
-        <div class="dot" style="background:#c8a96e;"></div>
-      </div>
+      <span class="price-tag">35&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('diorbag')">
       <span class="card-brand">Dior</span>
       <span class="card-name">Sacoche Dior</span>
       <span class="card-detail">Plusieurs mod&egrave;les</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#1a1a1a;"></div>
-        <div class="dot" style="background:#888;"></div>
-      </div>
+      <span class="price-tag">130&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('guccibag')">
       <span class="card-brand">Gucci</span>
       <span class="card-name">Sacoche Gucci</span>
       <span class="card-detail">Plusieurs mod&egrave;les</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#1a1a1a;"></div>
-        <div class="dot" style="background:#c8a96e;"></div>
-      </div>
+      <span class="price-range">Ancien 60&euro; &mdash; Nouveau 80&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('lvbag')">
       <span class="card-brand">Louis Vuitton</span>
       <span class="card-name">Sacoche LV</span>
-      <span class="card-detail">Plusieurs mod&egrave;les</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#8b7355;"></div>
-        <div class="dot" style="background:#1a1a1a;"></div>
-      </div>
+      <span class="card-detail">Bouteille &amp; Keepal</span>
+      <span class="price-range">Bouteille 130&euro; &mdash; Keepal 150&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
     <div class="card" onclick="openGallery('sacfemme')">
       <span class="card-brand">Sacs Femme</span>
       <span class="card-name">Collection Femme</span>
       <span class="card-detail">Coach &middot; Chanel &middot; LV</span>
-      <div class="color-dots">
-        <div class="dot" style="background:#c8a96e;"></div>
-        <div class="dot" style="background:#1a1a1a;"></div>
-        <div class="dot" style="background:#e8a0b0;"></div>
-      </div>
+      <span class="price-range">Coach 80&euro; &mdash; Chanel d&egrave;s 100&euro; &mdash; LV 100&euro;</span>
       <span class="card-hint">Voir photos &rarr;</span>
     </div>
   </div>
@@ -223,14 +280,15 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
       <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
     <div class="brands-row">
-      <span class="brand-pill">BLCG</span>
-      <span class="brand-pill">C.P. Company</span>
-      <span class="brand-pill">Dior</span>
-      <span class="brand-pill">LV</span>
-      <span class="brand-pill">Prada</span>
-      <span class="brand-pill">Stone Island</span>
-      <span class="brand-pill">Burberry</span>
-      <span class="brand-pill">Casablanca</span>
+      <span class="brand-pill">BLCG 35&euro;</span>
+      <span class="brand-pill">C.P. Company 30&euro;</span>
+      <span class="brand-pill">Dior 35&euro;</span>
+      <span class="brand-pill">LV 35&euro;</span>
+      <span class="brand-pill">Prada 35&euro;</span>
+      <span class="brand-pill">Stone Island 30&euro;</span>
+      <span class="brand-pill">Burberry 35&euro;</span>
+      <span class="brand-pill">Casablanca 30&euro;</span>
+      <span class="brand-pill">Sweat Zip 70&euro;</span>
     </div>
   </div>
 
@@ -258,111 +316,138 @@ function range(prefix, n) {
   return arr;
 }
 
+function rangeFrom(prefix, from, to) {
+  var arr = [];
+  for (var i = from; i <= to; i++) {
+    arr.push(BASE + prefix + i + '.jpg');
+  }
+  return arr;
+}
+
 var photos = {
-  snk_omni9:       range('omni9-', 40),
-  snk_gelnyc:      range('asicsnyc-', 8),
-  snk_kayano:      range('asicskayano-', 16),
-  snk_cloudtilt:   range('oncloudtilt-', 13),
-  snk_loewe:       range('onloewe-', 5),
-  snk_salomon:     range('salomon-', 6),
-  snk_yeezy:       range('yeezy700-', 5),
-  lux_b22:         range('b22-', 8),
-  lux_b25:         range('b25-', 3),
-  lux_b30:         range('b30-', 10),
-  lux_offw:        range('offw-', 7),
-  lux_bouncing:    range('bouncing-', 10),
-  claq_mind:       range('mind-', 5),
-  claq_oran:       range('oran-', 6),
-  claq_chypre:     range('chypre-', 5),
-  goyard_mess:     range('goyardmessager-', 10),
-  goyard_belv:     range('goyardbelve-', 6),
-  casquette:       range('ggcap-', 9).concat(range('lvcap-', 6)).concat(range('othercap-', 7)),
-  diorbag:         range('diorbag-', 11),
-  guccibag:        range('guccibag-', 10),
-  lvbag:           range('lvbag-', 8),
-  sacfemme_coach:  range('coachbaglady-', 4),
-  sacfemme_chanel: range('channelbag-', 3),
-  sacfemme_lv:     range('lvbaglady-', 6),
-  vet_blcg:        range('blcgshirt-', 2),
-  vet_cp:          range('cpshirt-', 4),
-  vet_dior:        range('diorshirt-', 6),
-  vet_lv:          range('lvshirt-', 12),
-  vet_prd:         range('prdshirt-', 1),
-  vet_si:          range('sishirt-', 6),
-  vet_brb:         range('brbshirt-', 3),
-  vet_casa:        range('casashirt-', 7),
-  vet_zip:         range('brbzip-', 1)
+  snk_omni9:         range('omni9-', 40),
+  snk_gelnyc:        range('asicsnyc-', 8),
+  snk_kayano:        range('asicskayano-', 16),
+  snk_cloudtilt:     range('oncloudtilt-', 13),
+  snk_loewe:         range('onloewe-', 5),
+  snk_salomon:       range('salomon-', 6),
+  snk_yeezy:         range('yeezy700-', 5),
+  lux_b22:           range('b22-', 8),
+  lux_b25:           range('b25-', 3),
+  lux_b30:           rangeFrom('b30-', 1, 7),
+  lux_b30stone:      rangeFrom('b30-', 8, 10),
+  lux_offw:          range('offw-', 7),
+  lux_bouncing:      range('bouncing-', 10),
+  claq_mind:         range('mind-', 5),
+  claq_oran:         range('oran-', 6),
+  claq_chypre:       range('chypre-', 5),
+  goyard_mess_moi:   rangeFrom('goyardmessager-', 1, 4),
+  goyard_mess_maam:  rangeFrom('goyardmessager-', 5, 10),
+  goyard_belv:       range('goyardbelve-', 6),
+  casquette:         range('ggcap-', 9).concat(range('lvcap-', 6)).concat(range('othercap-', 7)),
+  diorbag:           range('diorbag-', 11),
+  guccibag:          range('guccibag-', 10),
+  lv_bouteille:      [BASE + 'lvbag-1.jpg', BASE + 'lvbag-8.jpg'],
+  lv_keepal:         rangeFrom('lvbag-', 2, 7),
+  sacfemme_coach:    range('coachbaglady-', 4),
+  sacfemme_chanel:   range('channelbag-', 3),
+  sacfemme_lv:       range('lvbaglady-', 6),
+  vet_blcg:          range('blcgshirt-', 2),
+  vet_cp:            range('cpshirt-', 4),
+  vet_dior:          range('diorshirt-', 6),
+  vet_lv:            range('lvshirt-', 12),
+  vet_prd:           range('prdshirt-', 1),
+  vet_si:            range('sishirt-', 6),
+  vet_brb:           range('brbshirt-', 3),
+  vet_casa:          range('casashirt-', 7),
+  vet_zip:           range('brbzip-', 1)
 };
 
 var ITEMS = {
   sneakers:   { isSneakers:true },
   claquettes: { isClaquettes:true },
   luxe:       { isLuxe:true },
-  casquette:  { brand:'Casquettes',    name:'Collection Caps',  detail:'Plusieurs modeles', tags:['Taille unique','Neuf'] },
-  diorbag:    { brand:'Dior',          name:'Sacoche Dior',     detail:'Plusieurs modeles', tags:['Neuf'] },
-  guccibag:   { brand:'Gucci',         name:'Sacoche Gucci',    detail:'Plusieurs modeles', tags:['Neuf'] },
-  lvbag:      { brand:'Louis Vuitton', name:'Sacoche LV',       detail:'Plusieurs modeles', tags:['Neuf'] },
+  casquette:  { brand:'Casquettes',    name:'Collection Caps',  detail:'Plusieurs modeles', tags:['35 EUR','Taille unique','Neuf'] },
+  diorbag:    { brand:'Dior',          name:'Sacoche Dior',     detail:'Plusieurs modeles', tags:['130 EUR','Neuf'] },
+  guccibag:   { brand:'Gucci',         name:'Sacoche Gucci',    detail:'Ancien 60 EUR / Nouveau 80 EUR', tags:['Neuf'] },
+  lvbag:      { isLvbag:true },
   goyard:     { isGoyard:true },
   sacfemme:   { isSacFemme:true },
   vetements:  { isVetements:true }
 };
 
 var SNEAKER_TABS = [
-  { key:'snk_omni9',     label:'Saucony Omni 9',  detail:'Pro Grid Omni 9 - Rose / Violet',     tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boite incluse'] },
-  { key:'snk_gelnyc',    label:'Asics NYC',        detail:'Gel NYC - Plusieurs coloris',          tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  { key:'snk_kayano',    label:'Asics Kayano',     detail:'Gel-Kayano 14 - Argent / Rose',        tags:['Pointure US 8-9.5 F','Neuf','Boite incluse'] },
-  { key:'snk_cloudtilt', label:'On Cloudtilt',     detail:'On Cloudtilt - Noir / Ivoire',         tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  { key:'snk_loewe',     label:'On Loewe',         detail:'On x Loewe - Edition speciale',        tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  { key:'snk_salomon',   label:'Salomon',          detail:'Salomon - Plusieurs coloris',           tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  { key:'snk_yeezy',     label:'Yeezy 700',        detail:'Adidas Yeezy 700 - Plusieurs coloris', tags:['Pointures disponibles','Neuf','Boite incluse'] }
+  { key:'snk_omni9',     label:'Saucony Omni 9',  detail:'Pro Grid Omni 9 - Rose / Violet',     tags:['70 EUR','Pointure US 11.5 H','Pointure US 13 F','Neuf','Boite incluse'] },
+  { key:'snk_gelnyc',    label:'Asics NYC',        detail:'Gel NYC - Plusieurs coloris',          tags:['70 EUR','Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_kayano',    label:'Asics Kayano',     detail:'Gel-Kayano 14 - Argent / Rose',        tags:['70 EUR','Pointure US 8-9.5 F','Neuf','Boite incluse'] },
+  { key:'snk_cloudtilt', label:'On Cloudtilt',     detail:'On Cloudtilt - Noir / Ivoire',         tags:['70 EUR','Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_loewe',     label:'On Loewe',         detail:'On x Loewe - Edition speciale',        tags:['80 EUR','Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_salomon',   label:'Salomon',          detail:'Salomon - Plusieurs coloris',          tags:['70 EUR','Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_yeezy',     label:'Yeezy 700',        detail:'Adidas Yeezy 700 - Plusieurs coloris', tags:['70 EUR','Pointures disponibles','Neuf','Boite incluse'] }
 ];
 
 var LUXE_TABS = [
-  { key:'lux_b22',      label:'Dior B22',    detail:'Dior B22 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
-  { key:'lux_b25',      label:'Dior B25',    detail:'Dior B25 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
-  { key:'lux_b30',      label:'Dior B30',    detail:'Dior B30 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
-  { key:'lux_offw',     label:'Off-White',   detail:'Off-White - Edition limitee',      tags:['Neuf','Boite incluse'] },
-  { key:'lux_bouncing', label:'Bouncing',    detail:'Bouncing - Plusieurs coloris',     tags:['Neuf','Boite incluse'] }
+  { key:'lux_b22',       label:'Dior B22',      detail:'Dior B22 - Plusieurs coloris',       tags:['110 EUR','Neuf','Boite incluse'] },
+  { key:'lux_b25',       label:'Dior B25',       detail:'Dior B25 - Plusieurs coloris',       tags:['130 EUR','Neuf','Boite incluse'] },
+  { key:'lux_b30',       label:'Dior B30 130',   detail:'Dior B30 - Coloris standards',       tags:['130 EUR','Neuf','Boite incluse'] },
+  { key:'lux_b30stone',  label:'Dior B30 Stone', detail:'Dior B30 Stone - Edition speciale',  tags:['150 EUR','Neuf','Boite incluse'] },
+  { key:'lux_offw',      label:'Off-White',       detail:'Off-White - Edition limitee',        tags:['100 EUR','Neuf','Boite incluse'] },
+  { key:'lux_bouncing',  label:'Bouncing',        detail:'Bouncing - Plusieurs coloris',       tags:['140 EUR','Neuf','Boite incluse'] }
 ];
 
 var CLAQ_TABS = [
-  { key:'claq_mind',   label:'Mind',   detail:'Claquette Mind - Plusieurs coloris',   tags:['Neuf'] },
-  { key:'claq_oran',   label:'Oran',   detail:'Claquette Oran - Plusieurs coloris',   tags:['Neuf'] },
-  { key:'claq_chypre', label:'Chypre', detail:'Claquette Chypre - Plusieurs coloris', tags:['Neuf'] }
+  { key:'claq_mind',   label:'Mind',   detail:'Claquette Mind - Plusieurs coloris',   tags:['80 EUR','Neuf'] },
+  { key:'claq_oran',   label:'Oran',   detail:'Claquette Oran - Plusieurs coloris',   tags:['60 EUR','Neuf'] },
+  { key:'claq_chypre', label:'Chypre', detail:'Claquette Chypre - Plusieurs coloris', tags:['90 EUR','Neuf'] }
 ];
 
 
+var LV_TABS = [
+  { key:'lv_bouteille', label:'Bouteille LV', detail:'LV Bouteille - Photos 1 et 8', tags:['130 EUR','Neuf'] },
+  { key:'lv_keepal',    label:'Keepal LV',    detail:'LV Keepal - Photos 2 a 7',     tags:['150 EUR','Neuf'] }
+];
+
 var GOYARD_TABS = [
-  { key:'goyard_mess', label:'Messager',  detail:'Sac Messager - Noir Chevron',      tags:['Toile Goyardine','Neuf'] },
-  { key:'goyard_belv', label:'Belvedere', detail:'Sac Belvedere - Plusieurs coloris',tags:['Toile Goyardine','Neuf'] }
+  { key:'goyard_mess_moi',  label:'Messager 120',  detail:'Sac Messager - Photos 1 a 4',      tags:['120 EUR','Toile Goyardine','Neuf'] },
+  { key:'goyard_mess_maam', label:'Messager 130',  detail:'Sac Messager - Photos 5 a 10',     tags:['130 EUR','Toile Goyardine','Neuf'] },
+  { key:'goyard_belv',      label:'Belvedere',     detail:'Sac Belvedere - Plusieurs coloris', tags:['90 EUR','Toile Goyardine','Neuf'] }
 ];
 
 var FEMME_TABS = [
-  { key:'sacfemme_coach',  label:'Coach',  detail:'Sac Coach',  tags:['Neuf'] },
-  { key:'sacfemme_chanel', label:'Chanel', detail:'Sac Chanel', tags:['Neuf'] },
-  { key:'sacfemme_lv',     label:'LV',     detail:'Sac LV',     tags:['Neuf'] }
+  { key:'sacfemme_coach',  label:'Coach',  detail:'Sac Coach',  tags:['80 EUR','Neuf'] },
+  { key:'sacfemme_chanel', label:'Chanel', detail:'Sac Chanel', tags:['100 EUR - 130 EUR selon modele','Neuf'] },
+  { key:'sacfemme_lv',     label:'LV',     detail:'Sac LV',     tags:['100 EUR','Neuf'] }
 ];
 
 var VET_TABS = [
-  { key:'vet_blcg', label:'BLCG',         detail:'T-shirt Balenciaga',   tags:['Neuf'] },
-  { key:'vet_cp',   label:'C.P. Company', detail:'T-shirt C.P. Company', tags:['Neuf'] },
-  { key:'vet_dior', label:'Dior',         detail:'T-shirt Dior',         tags:['Neuf'] },
-  { key:'vet_lv',   label:'LV',           detail:'T-shirt LV',           tags:['Neuf'] },
-  { key:'vet_prd',  label:'Prada',        detail:'T-shirt Prada',        tags:['Neuf'] },
-  { key:'vet_si',   label:'Stone Island', detail:'T-shirt Stone Island', tags:['Neuf'] },
-  { key:'vet_brb',  label:'Burberry',     detail:'T-shirt Burberry',     tags:['Neuf'] },
-  { key:'vet_casa', label:'Casablanca',   detail:'T-shirt Casablanca',   tags:['Neuf'] },
-  { key:'vet_zip',  label:'Sweat Zip',    detail:'Sweat Zippe Burberry', tags:['Neuf'] }
+  { key:'vet_blcg', label:'BLCG',         detail:'T-shirt Balenciaga',   tags:['35 EUR','Neuf'] },
+  { key:'vet_cp',   label:'C.P. Company', detail:'T-shirt C.P. Company', tags:['30 EUR','Neuf'] },
+  { key:'vet_dior', label:'Dior',         detail:'T-shirt Dior',         tags:['35 EUR','Neuf'] },
+  { key:'vet_lv',   label:'LV',           detail:'T-shirt LV',           tags:['35 EUR','Neuf'] },
+  { key:'vet_prd',  label:'Prada',        detail:'T-shirt Prada',        tags:['35 EUR','Neuf'] },
+  { key:'vet_si',   label:'Stone Island', detail:'T-shirt Stone Island', tags:['30 EUR','Neuf'] },
+  { key:'vet_brb',  label:'Burberry',     detail:'T-shirt Burberry',     tags:['35 EUR','Neuf'] },
+  { key:'vet_casa', label:'Casablanca',   detail:'T-shirt Casablanca',   tags:['30 EUR','Neuf'] },
+  { key:'vet_zip',  label:'Sweat Zip',    detail:'Sweat Zippe Burberry', tags:['70 EUR','Neuf'] }
 ];
 
 var currentIdx = {};
 var activeTab = {};
+
+function extractPrice(tags) {
+  for (var i = 0; i < tags.length; i++) {
+    var m = tags[i].match(/^(\d+)\s*EUR/);
+    if (m) return parseInt(m[1]);
+  }
+  return 0;
+}
 
 function getTabsForId(id) {
   if (id === 'sneakers')   return SNEAKER_TABS;
   if (id === 'claquettes') return CLAQ_TABS;
   if (id === 'luxe')       return LUXE_TABS;
   if (id === 'goyard')     return GOYARD_TABS;
+  if (id === 'lvbag')      return LV_TABS;
   if (id === 'sacfemme')   return FEMME_TABS;
   if (id === 'vetements')  return VET_TABS;
   return [];
@@ -414,7 +499,7 @@ function buildModal(id) {
       buildMainHTML(id, arr, 0) +
       (arr.length > 1 ? '<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-' + id + '">' + buildThumbs(id, arr, 0) + '</div></div>' : '') +
       '<div class="modal-info">' + tagsHtml + '</div>' +
-      '<div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>' +
+      '<div class="add-cart-bar"><button class="add-cart-btn" onclick="window._addToCart(\'' + item.name.replace(/'/g,"\\'") + '\',' + extractPrice(item.tags) + ',\'' + id + '\')">+ Ajouter au panier</button></div>' +
     '</div>' +
   '</div>';
 }
@@ -432,7 +517,7 @@ function buildTabModal(id, tabs) {
   for (var j = 0; j < tab.tags.length; j++) {
     tagsHtml += '<span class="info-tag">' + tab.tags[j] + '</span>';
   }
-  var titles = { sneakers:'Sneakers', claquettes:'Claquettes', luxe:'Paires de Luxe', goyard:'Goyard', sacfemme:'Sacs Femme', vetements:'Vetements' };
+  var titles = { sneakers:'Sneakers', claquettes:'Claquettes', luxe:'Paires de Luxe', goyard:'Goyard', lvbag:'Sacoche LV', sacfemme:'Sacs Femme', vetements:'Vetements' };
   return '<div class="modal-overlay" id="overlay-' + id + '">' +
     '<div class="modal">' +
       '<div class="modal-header">' +
@@ -447,7 +532,7 @@ function buildTabModal(id, tabs) {
       '<div id="tab-main-' + id + '">' + buildMainHTML(id, arr, 0) + '</div>' +
       '<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-' + id + '">' + (arr.length > 1 ? buildThumbs(id, arr, 0) : '') + '</div></div>' +
       '<div class="modal-info" id="tab-info-' + id + '">' + tagsHtml + '</div>' +
-      '<div class="contact-bar"><button class="contact-btn" onclick="contactUs()">Nous contacter pour ce produit</button></div>' +
+      '<div class="add-cart-bar" id="tab-cart-' + id + '"><button class="add-cart-btn" onclick="window._addToCart(\'' + tab.label.replace(/'/g,"\\'") + '\',' + extractPrice(tab.tags) + ',\'' + key + '\')">+ Ajouter au panier</button></div>' +
     '</div>' +
   '</div>';
 }
@@ -500,6 +585,10 @@ function switchTab(id, key) {
   if (mainWrap) mainWrap.innerHTML = buildMainHTML(id, arr, 0);
   var tw = document.getElementById('thumbs-' + id);
   if (tw) tw.innerHTML = arr.length > 1 ? buildThumbs(id, arr, 0) : '';
+  var cartBar = document.getElementById('tab-cart-' + id);
+  if (cartBar) {
+    cartBar.innerHTML = '<button class="add-cart-btn" onclick="window._addToCart(\'' + tab.label.replace(/'/g,"\\'") + '\',' + extractPrice(tab.tags) + ',\'' + key + '\')">+ Ajouter au panier</button>';
+  }
 }
 
 function getCurrentArr(id) {
@@ -536,6 +625,242 @@ function navPhoto(id, dir) {
 function contactUs() {
   window.open('https://www.snapchat.com/add/rxluxuryy', '_blank');
 }
+</script>
+<!-- PANIER FLOTTANT -->
+<div class="cart-bubble empty" id="cartBubble" onclick="openCart()">
+  <div class="cart-bubble-icon">&#128722;</div>
+  <div class="cart-bubble-count" id="cartCount">0</div>
+</div>
+
+<!-- MODAL TAILLE -->
+<div class="size-overlay" id="sizeOverlay">
+  <div class="size-modal">
+    <div class="size-header">
+      <div class="size-title" id="sizeArticleName">Ajouter au panier</div>
+      <div class="size-subtitle" id="sizeArticlePrice"></div>
+    </div>
+    <div class="size-body">
+      <label class="size-label">Taille / Pointure</label>
+      <select class="size-select" id="sizeSelect"></select>
+      <button class="size-confirm" onclick="confirmAddToCart()">Ajouter au panier</button>
+      <button class="size-cancel" onclick="closeSizeModal()">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PANIER -->
+<div class="cart-overlay" id="cartOverlay">
+  <div class="cart-modal">
+    <div class="cart-header">
+      <div class="cart-title">Mon Panier</div>
+      <button class="cart-close" onclick="closeCart()">&#10005; Fermer</button>
+    </div>
+    <div id="cartItemsList"><div class="cart-empty">Votre panier est vide</div></div>
+    <div class="cart-total-bar">
+      <div class="cart-total-label">Total</div>
+      <div class="cart-total-value" id="cartTotal">0 EUR</div>
+    </div>
+    <button class="cart-checkout-btn" onclick="openCheckout()">Commander &rarr;</button>
+  </div>
+</div>
+
+<!-- FORMULAIRE COMMANDE -->
+<div class="checkout-overlay" id="checkoutOverlay">
+  <div class="checkout-modal">
+    <div class="checkout-header">
+      <div class="checkout-title">Finaliser la commande</div>
+      <div class="checkout-sub">Vos informations de contact et livraison</div>
+    </div>
+    <div class="checkout-body">
+      <label class="form-label">Snapchat *</label>
+      <input class="form-input" id="formSnap" placeholder="Votre nom Snapchat" type="text"/>
+      <label class="form-label">Téléphone *</label>
+      <input class="form-input" id="formTel" placeholder="06 XX XX XX XX" type="tel"/>
+      <label class="form-label">Adresse de livraison *</label>
+      <input class="form-input" id="formAdresse" placeholder="Numéro et nom de rue" type="text"/>
+      <div class="form-row">
+        <div>
+          <label class="form-label">Ville *</label>
+          <input class="form-input" id="formVille" placeholder="Ville" type="text"/>
+        </div>
+        <div>
+          <label class="form-label">Code postal *</label>
+          <input class="form-input" id="formCP" placeholder="75001" type="text"/>
+        </div>
+      </div>
+      <button class="checkout-submit" onclick="submitOrder()">Confirmer la commande</button>
+      <button class="checkout-back" onclick="closeCheckout()">&#8592; Retour au panier</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-modal">
+    <div class="confirm-icon">&#10003;</div>
+    <div class="confirm-title">Commande envoyée !</div>
+    <div class="confirm-num" id="confirmNum">#000000</div>
+    <div class="confirm-sub">Votre commande a bien été reçue.<br>Notez ce numéro de commande.<br>Nous vous contacterons sur Snap pour le paiement.</div>
+    <button class="confirm-close" onclick="closeConfirm()">Fermer</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, push, set } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQKTxZIavC-29TGIfR7v9Sg4Knlz6oawM",
+  authDomain: "rxluxury-fbebb.firebaseapp.com",
+  databaseURL: "https://rxluxury-fbebb-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "rxluxury-fbebb",
+  storageBucket: "rxluxury-fbebb.firebasestorage.app",
+  messagingSenderId: "99568726381",
+  appId: "1:99568726381:web:e089448b450bddf108aa64"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+var cart = [];
+var pendingItem = null;
+
+// Tailles par catégorie
+var SIZES = {
+  shoes:     ['35','36','37','38','39','40','41','42','43','44','45','46'],
+  sneakers:  ['35','36','37','38','39','40','41','42','43','44','45','46'],
+  claquettes:['35','36','37','38','39','40','41','42','43','44','45','46'],
+  tshirt:    ['XS','S','M','L','XL','XXL'],
+  zip:       ['XS','S','M','L','XL','XXL'],
+  sac:       ['Taille unique'],
+  casquette: ['Taille unique']
+};
+
+function getSizesForItem(nom) {
+  var n = nom.toLowerCase();
+  if (n.includes('zip') || n.includes('sweat')) return SIZES.zip;
+  if (n.includes('shirt') || n.includes('t-shirt') || n.includes('blcg') || n.includes('dior') || n.includes('lv') || n.includes('prada') || n.includes('stone') || n.includes('burberry') || n.includes('casablanca') || n.includes('cp')) return SIZES.tshirt;
+  if (n.includes('cap') || n.includes('casquette')) return SIZES.casquette;
+  if (n.includes('sac') || n.includes('goyard') || n.includes('gucci') || n.includes('bouteille') || n.includes('keepal') || n.includes('coach') || n.includes('chanel') || n.includes('femme')) return SIZES.sac;
+  return SIZES.shoes;
+}
+
+window.openSizeModal = function(nom, prix, tabKey) {
+  pendingItem = { nom: nom, prix: prix, tabKey: tabKey };
+  document.getElementById('sizeArticleName').textContent = nom;
+  document.getElementById('sizeArticlePrice').textContent = prix + ' EUR';
+  var sizes = getSizesForItem(nom);
+  var sel = document.getElementById('sizeSelect');
+  sel.innerHTML = sizes.map(function(s){ return '<option value="'+s+'">'+s+'</option>'; }).join('');
+  document.getElementById('sizeOverlay').classList.add('open');
+};
+
+window.closeSizeModal = function() {
+  document.getElementById('sizeOverlay').classList.remove('open');
+  pendingItem = null;
+};
+
+window.confirmAddToCart = function() {
+  if (!pendingItem) return;
+  var taille = document.getElementById('sizeSelect').value;
+  cart.push({ nom: pendingItem.nom, prix: pendingItem.prix, taille: taille });
+  closeSizeModal();
+  updateCartUI();
+  showCartNotif();
+};
+
+function updateCartUI() {
+  var count = cart.length;
+  var bubble = document.getElementById('cartBubble');
+  document.getElementById('cartCount').textContent = count;
+  bubble.classList.toggle('empty', count === 0);
+  var total = cart.reduce(function(s,i){ return s + (parseInt(i.prix)||0); }, 0);
+  document.getElementById('cartTotal').textContent = total + ' EUR';
+  var list = document.getElementById('cartItemsList');
+  if (cart.length === 0) { list.innerHTML = '<div class="cart-empty">Votre panier est vide</div>'; return; }
+  list.innerHTML = cart.map(function(item, idx) {
+    return '<div class="cart-item">' +
+      '<div class="cart-item-info"><div class="cart-item-name">'+item.nom+'</div><div class="cart-item-size">Taille : '+item.taille+'</div></div>' +
+      '<div class="cart-item-right"><div class="cart-item-price">'+item.prix+' EUR</div><button class="cart-remove" onclick="removeFromCart('+idx+')">&#10005;</button></div>' +
+    '</div>';
+  }).join('');
+}
+
+function showCartNotif() {
+  var b = document.getElementById('cartBubble');
+  b.style.transform = 'scale(1.3)';
+  setTimeout(function(){ b.style.transform = ''; }, 300);
+}
+
+window.removeFromCart = function(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+};
+
+window.openCart = function() {
+  updateCartUI();
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeCart = function() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+window.openCheckout = function() {
+  if (cart.length === 0) return;
+  closeCart();
+  document.getElementById('checkoutOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeCheckout = function() {
+  document.getElementById('checkoutOverlay').classList.remove('open');
+  openCart();
+};
+
+window.submitOrder = function() {
+  var snap = document.getElementById('formSnap').value.trim();
+  var tel = document.getElementById('formTel').value.trim();
+  var adresse = document.getElementById('formAdresse').value.trim();
+  var ville = document.getElementById('formVille').value.trim();
+  var cp = document.getElementById('formCP').value.trim();
+  if (!snap || !tel || !adresse || !ville || !cp) { alert('Veuillez remplir tous les champs obligatoires'); return; }
+  var total = cart.reduce(function(s,i){ return s + (parseInt(i.prix)||0); }, 0);
+  var numero = 'RX' + Date.now().toString().slice(-6);
+  var commande = {
+    numero: numero,
+    timestamp: Date.now(),
+    snap: snap,
+    telephone: tel,
+    adresse: adresse,
+    ville: ville,
+    codePostal: cp,
+    articles: cart,
+    total: total,
+    done: false
+  };
+  var newRef = push(ref(db, 'commandes'));
+  set(newRef, commande).then(function() {
+    cart = [];
+    updateCartUI();
+    document.getElementById('checkoutOverlay').classList.remove('open');
+    document.getElementById('confirmNum').textContent = '#' + numero;
+    document.getElementById('confirmOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }).catch(function(e) {
+    alert('Erreur lors de l\'envoi. Réessayez.');
+  });
+};
+
+window.closeConfirm = function() {
+  document.getElementById('confirmOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+// Expose openSizeModal globally for inline onclick
+window._addToCart = window.openSizeModal;
 </script>
 </body>
 </html>
