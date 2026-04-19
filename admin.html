@@ -52,6 +52,31 @@ body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .badge-envoye{background:#ba751722;color:#ba7517;}
 .badge-receptionne{background:#1d9e7522;color:#1d9e75;}
 .badge-annule{background:#e24b4a22;color:#e24b4a;}
+.badge-traite{background:#1d9e7522;color:#1d9e75;}
+
+/* ONGLETS NAVIGATION */
+.nav-tabs{display:flex;gap:2px;background:#1a1a1a;border-radius:10px;padding:3px;margin-bottom:20px;}
+.nav-tab{flex:1;padding:9px 12px;text-align:center;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#444;background:transparent;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:8px;transition:all 0.2s;}
+.nav-tab:hover{color:#aaa;}
+.nav-tab.active{background:#0a0a0a;color:#c8a96e;}
+
+/* DEMANDES */
+.demande-card{background:#111;border:0.5px solid #1a1a1a;border-left:3px solid #7f77dd;border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.demande-card.status-traite{border-left:3px solid #1d9e75;opacity:0.7;}
+.demande-top{padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;user-select:none;}
+.demande-top:hover{background:#161616;}
+.demande-body{display:none;padding:0 18px 18px;}
+.demande-body.open{display:block;}
+.demande-photo{width:100%;max-height:220px;object-fit:contain;border-radius:8px;margin-bottom:12px;background:#141414;}
+.demande-desc{font-size:12px;color:#ccc;line-height:1.7;padding:10px 14px;background:#1a1a1a;border-radius:8px;margin-bottom:12px;}
+.demande-contact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
+.demande-actions{display:flex;gap:8px;}
+.mark-traite-btn{flex:1;padding:9px;border-radius:8px;border:0.5px solid #1d9e7544;background:transparent;color:#1d9e7544;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.mark-traite-btn:hover{background:#1d9e7522;border-color:#1d9e75;color:#1d9e75;}
+.mark-traite-btn.done{background:#1d9e7522;border-color:#1d9e75;color:#1d9e75;}
+.delete-demande-btn{flex:1;padding:9px;border-radius:8px;border:0.5px solid #e24b4a44;background:transparent;color:#e24b4a44;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.delete-demande-btn:hover{background:#e24b4a22;border-color:#e24b4a;color:#e24b4a;}
+.no-photo{font-size:10px;color:#333;letter-spacing:2px;padding:20px;text-align:center;background:#141414;border-radius:8px;margin-bottom:12px;}
 .order-body{display:none;padding:0 18px 18px;}
 .order-body.open{display:block;}
 .order-contact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
@@ -106,16 +131,36 @@ body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;min-height:100
     <div class="stat-card"><div class="stat-label">En cours</div><div class="stat-value" id="statEnCours" style="color:#378add;">0</div></div>
     <div class="stat-card"><div class="stat-label">Chiffre</div><div class="stat-value" id="statCA">0EUR</div></div>
   </div>
-  <div class="filter-row">
-    <button class="filter-btn active" onclick="setFilter('all',this)">Toutes</button>
-    <button class="filter-btn" onclick="setFilter('new',this)">Nouvelles</button>
-    <button class="filter-btn" onclick="setFilter('paye',this)">Pay&eacute;es</button>
-    <button class="filter-btn" onclick="setFilter('envoye',this)">Envoy&eacute;es</button>
-    <button class="filter-btn" onclick="setFilter('receptionne',this)">Re&ccedil;ues</button>
-    <button class="filter-btn" onclick="setFilter('annule',this)">Annul&eacute;es</button>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchSection('commandes',this)">Commandes</button>
+    <button class="nav-tab" onclick="switchSection('demandes',this)">Demandes perso</button>
   </div>
-  <button class="refresh-btn" onclick="renderOrders()">&#8635; Actualiser</button>
-  <div id="ordersList"><div class="no-orders">Chargement...</div></div>
+
+  <!-- COMMANDES -->
+  <div id="sectionCommandes">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all',this)">Toutes</button>
+      <button class="filter-btn" onclick="setFilter('new',this)">Nouvelles</button>
+      <button class="filter-btn" onclick="setFilter('paye',this)">Pay&eacute;es</button>
+      <button class="filter-btn" onclick="setFilter('envoye',this)">Envoy&eacute;es</button>
+      <button class="filter-btn" onclick="setFilter('receptionne',this)">Re&ccedil;ues</button>
+      <button class="filter-btn" onclick="setFilter('annule',this)">Annul&eacute;es</button>
+    </div>
+    <button class="refresh-btn" onclick="renderOrders()">&#8635; Actualiser</button>
+    <div id="ordersList"><div class="no-orders">Chargement...</div></div>
+  </div>
+
+  <!-- DEMANDES PERSO -->
+  <div id="sectionDemandes" style="display:none;">
+    <div class="filter-row">
+      <button class="filter-btn active" id="demandeFilterAll" onclick="setDemandeFilter('all',this)">Toutes</button>
+      <button class="filter-btn" onclick="setDemandeFilter('new',this)">Non trait&eacute;es</button>
+      <button class="filter-btn" onclick="setDemandeFilter('traite',this)">Trait&eacute;es</button>
+    </div>
+    <button class="refresh-btn" onclick="renderDemandes()">&#8635; Actualiser</button>
+    <div id="demandesList"><div class="no-orders">Chargement...</div></div>
+  </div>
 </div>
 
 <script type="module">
@@ -137,8 +182,20 @@ const db = getDatabase(app);
 const ADMIN_PWD = 'rxluxury2024';
 
 var allOrders = [];
+var allDemandes = [];
 var currentFilter = 'all';
+var currentDemandeFilter = 'all';
 var openCards = {};
+var openDemandes = {};
+var currentSection = 'commandes';
+
+window.switchSection = function(section, btn) {
+  currentSection = section;
+  document.querySelectorAll('.nav-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('sectionCommandes').style.display = section === 'commandes' ? 'block' : 'none';
+  document.getElementById('sectionDemandes').style.display = section === 'demandes' ? 'block' : 'none';
+};
 
 window.checkLogin = function() {
   if (document.getElementById('pwdInput').value === ADMIN_PWD) {
@@ -164,6 +221,13 @@ function startListening() {
     }).sort(function(a,b){ return b.timestamp - a.timestamp; });
     updateStats();
     renderOrders();
+  });
+  onValue(ref(db, 'demandes'), function(snapshot) {
+    var data = snapshot.val() || {};
+    allDemandes = Object.entries(data).map(function(e) {
+      return Object.assign({ _id: e[0] }, e[1]);
+    }).sort(function(a,b){ return b.timestamp - a.timestamp; });
+    renderDemandes();
   });
 }
 
@@ -249,9 +313,74 @@ window.deleteOrder = function(id, num) {
 
 window.setFilter = function(filter, btn) {
   currentFilter = filter;
-  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#sectionCommandes .filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
   renderOrders();
+};
+
+window.setDemandeFilter = function(filter, btn) {
+  currentDemandeFilter = filter;
+  document.querySelectorAll('#sectionDemandes .filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderDemandes();
+};
+
+window.renderDemandes = function() {
+  var filtered = allDemandes.filter(function(d) {
+    if (currentDemandeFilter === 'all') return true;
+    if (currentDemandeFilter === 'new') return !d.statut || d.statut === 'new';
+    return d.statut === currentDemandeFilter;
+  });
+  var list = document.getElementById('demandesList');
+  if (!filtered.length) { list.innerHTML = '<div class="no-orders">Aucune demande</div>'; return; }
+  list.innerHTML = filtered.map(function(d) {
+    var isTraite = d.statut === 'traite';
+    var isOpen = openDemandes[d._id];
+    var date = d.timestamp ? new Date(d.timestamp).toLocaleString('fr-FR') : '';
+    var photoHtml = d.photo
+      ? '<img class="demande-photo" src="'+d.photo+'" alt="photo article"/>'
+      : '<div class="no-photo">Aucune photo fournie</div>';
+    return '<div class="demande-card'+(isTraite?' status-traite':'')+'" id="dem-'+d._id+'">' +
+      '<div class="demande-top" onclick="toggleDemande(\''+d._id+'\')">' +
+        '<div><div class="order-num">#'+d.numero+'</div><div class="order-date">'+date+'</div></div>' +
+        '<div class="order-top-right">' +
+          '<div class="order-summary-text"><div style="font-size:11px;color:#ccc;">'+(d.snap||'')+'</div></div>' +
+          '<span class="status-badge '+(isTraite?'badge-traite':'badge-new')+'">'+(isTraite?'Trait\u00e9e':'Nouvelle')+'</span>' +
+          '<span class="chevron'+(isOpen?' open':'')+'">&#9660;</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="demande-body'+(isOpen?' open':'')+'" id="dbody-'+d._id+'">' +
+        photoHtml +
+        '<div class="demande-desc">'+( d.description||'-')+'</div>' +
+        '<div class="demande-contact">' +
+          '<div class="contact-chip">Snap: <span>'+(d.snap||'-')+'</span></div>' +
+          '<div class="contact-chip">T\u00e9l: <span>'+(d.telephone||'-')+'</span></div>' +
+        '</div>' +
+        '<div class="demande-actions">' +
+          '<button class="mark-traite-btn'+(isTraite?' done':'')+'" onclick="markDemandeTraitee(\''+d._id+'\')">'+(isTraite?'&#10003; Trait\u00e9e':'Marquer trait\u00e9e')+'</button>' +
+          '<button class="delete-demande-btn" onclick="deleteDemande(\''+d._id+'\',\''+d.numero+'\')">&#128465; Supprimer</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+};
+
+window.toggleDemande = function(id) {
+  openDemandes[id] = !openDemandes[id];
+  var body = document.getElementById('dbody-'+id);
+  var chevron = document.querySelector('#dem-'+id+' .chevron');
+  if (body) body.classList.toggle('open', !!openDemandes[id]);
+  if (chevron) chevron.classList.toggle('open', !!openDemandes[id]);
+};
+
+window.markDemandeTraitee = function(id) {
+  update(ref(db, 'demandes/'+id), { statut: 'traite' });
+};
+
+window.deleteDemande = function(id, num) {
+  if (confirm('Supprimer la demande #'+num+' ?')) {
+    remove(ref(db, 'demandes/'+id));
+  }
 };
 </script>
 </body>
