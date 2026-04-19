@@ -91,35 +91,55 @@ body{background:#0d0d0d;display:flex;justify-content:center;padding:40px 20px;mi
   </div>
   <div class="tagline">Pi&egrave;ces s&eacute;lectionn&eacute;es &mdash; Qualit&eacute; premium</div>
 
-  <div class="section-title">Baskets</div>
-  <div class="grid-2">
-    <div class="card" onclick="openGallery('omni9')">
-      <span class="card-brand">Saucony Originals</span>
-      <span class="card-name">Pro Grid Omni 9</span>
-      <span class="card-detail">Rose / Violet</span>
-      <span class="card-pill">Pointure US 11.5 H &mdash; 13 F</span>
-      <span class="card-hint">Voir photos &rarr;</span>
+  <div class="section-title">Chaussures</div>
+  <div class="card-full" onclick="openGallery('sneakers')">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="card-full-title">Sneakers</div>
+        <div class="card-full-sub">Toutes les baskets &mdash; cliquez pour voir</div>
+      </div>
+      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
-    <div class="card" onclick="openGallery('gelnyc')">
-      <span class="card-brand">Asics</span>
-      <span class="card-name">Gel NYC</span>
-      <span class="card-detail">Plusieurs coloris</span>
-      <span class="card-pill">Pointures disponibles</span>
-      <span class="card-hint">Voir photos &rarr;</span>
+    <div class="brands-row">
+      <span class="brand-pill">Saucony</span>
+      <span class="brand-pill">Asics NYC</span>
+      <span class="brand-pill">Asics Kayano</span>
+      <span class="brand-pill">On Cloudtilt</span>
+      <span class="brand-pill">On Loewe</span>
+      <span class="brand-pill">Salomon</span>
+      <span class="brand-pill">Yeezy 700</span>
     </div>
-    <div class="card" onclick="openGallery('cloudtilt')">
-      <span class="card-brand">On Running</span>
-      <span class="card-name">Cloudtilt &amp; Loewe</span>
-      <span class="card-detail">Plusieurs mod&egrave;les</span>
-      <span class="card-pill">Pointures disponibles</span>
-      <span class="card-hint">Voir photos &rarr;</span>
+  </div>
+
+  <div class="card-full" onclick="openGallery('claquettes')" style="border-top:1px solid #1a1a1a;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="card-full-title">Claquettes</div>
+        <div class="card-full-sub">Homme &amp; Femme &mdash; cliquez pour voir</div>
+      </div>
+      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
     </div>
-    <div class="card" onclick="openGallery('kayano')">
-      <span class="card-brand">Asics</span>
-      <span class="card-name">Gel-Kayano 14</span>
-      <span class="card-detail">Argent / Blanc / Rose</span>
-      <span class="card-pill">Pointure US 8 &mdash; 9.5 F</span>
-      <span class="card-hint">Voir photos &rarr;</span>
+    <div class="brands-row">
+      <span class="brand-pill">Mind</span>
+      <span class="brand-pill">Oran</span>
+      <span class="brand-pill">Chypre</span>
+    </div>
+  </div>
+
+  <div class="card-full" onclick="openGallery('luxe')" style="border-top:1px solid #1a1a1a;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="card-full-title">Paires de Luxe</div>
+        <div class="card-full-sub">S&eacute;lection premium &mdash; cliquez pour voir</div>
+      </div>
+      <span class="card-hint" style="position:relative;bottom:auto;right:auto;opacity:1;margin-left:16px;flex-shrink:0;">Voir photos &rarr;</span>
+    </div>
+    <div class="brands-row">
+      <span class="brand-pill">Dior B22</span>
+      <span class="brand-pill">Dior B25</span>
+      <span class="brand-pill">Dior B30</span>
+      <span class="brand-pill">Off-White</span>
+      <span class="brand-pill">Bouncing</span>
     </div>
   </div>
 
@@ -239,10 +259,21 @@ function range(prefix, n) {
 }
 
 var photos = {
-  omni9:           range('omni9-', 40),
-  gelnyc:          range('asicsnyc-', 6),
-  cloudtilt:       range('oncloudtilt-', 6).concat(range('onloewe-', 5)),
-  kayano:          range('asicskayano-', 8),
+  snk_omni9:       range('omni9-', 40),
+  snk_gelnyc:      range('asicsnyc-', 8),
+  snk_kayano:      range('asicskayano-', 16),
+  snk_cloudtilt:   range('oncloudtilt-', 13),
+  snk_loewe:       range('onloewe-', 5),
+  snk_salomon:     range('salomon-', 6),
+  snk_yeezy:       range('yeezy700-', 5),
+  lux_b22:         range('b22-', 8),
+  lux_b25:         range('b25-', 3),
+  lux_b30:         range('b30-', 10),
+  lux_offw:        range('offw-', 7),
+  lux_bouncing:    range('bouncing-', 10),
+  claq_mind:       range('mind-', 5),
+  claq_oran:       range('oran-', 6),
+  claq_chypre:     range('chypre-', 5),
   goyard_mess:     range('goyardmessager-', 10),
   goyard_belv:     range('goyardbelve-', 6),
   casquette:       range('ggcap-', 9).concat(range('lvcap-', 6)).concat(range('othercap-', 7)),
@@ -264,18 +295,42 @@ var photos = {
 };
 
 var ITEMS = {
-  omni9:     { brand:'Saucony Originals', name:'Pro Grid Omni 9',   detail:'Rose / Violet',        tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boite incluse'] },
-  gelnyc:    { brand:'Asics',             name:'Gel NYC',            detail:'Plusieurs coloris',    tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  cloudtilt: { brand:'On Running',        name:'Cloudtilt & Loewe', detail:'Plusieurs modeles',    tags:['Pointures disponibles','Neuf','Boite incluse'] },
-  kayano:    { brand:'Asics',             name:'Gel-Kayano 14',     detail:'Argent / Blanc / Rose', tags:['Pointure US 8 - 9.5 F','Neuf','Boite incluse'] },
-  casquette: { brand:'Casquettes',        name:'Collection Caps',   detail:'Plusieurs modeles',    tags:['Taille unique','Neuf'] },
-  diorbag:   { brand:'Dior',              name:'Sacoche Dior',      detail:'Plusieurs modeles',    tags:['Neuf'] },
-  guccibag:  { brand:'Gucci',             name:'Sacoche Gucci',     detail:'Plusieurs modeles',    tags:['Neuf'] },
-  lvbag:     { brand:'Louis Vuitton',     name:'Sacoche LV',        detail:'Plusieurs modeles',    tags:['Neuf'] },
-  goyard:    { isGoyard:true },
-  sacfemme:  { isSacFemme:true },
-  vetements: { isVetements:true }
+  sneakers:   { isSneakers:true },
+  claquettes: { isClaquettes:true },
+  luxe:       { isLuxe:true },
+  casquette:  { brand:'Casquettes',    name:'Collection Caps',  detail:'Plusieurs modeles', tags:['Taille unique','Neuf'] },
+  diorbag:    { brand:'Dior',          name:'Sacoche Dior',     detail:'Plusieurs modeles', tags:['Neuf'] },
+  guccibag:   { brand:'Gucci',         name:'Sacoche Gucci',    detail:'Plusieurs modeles', tags:['Neuf'] },
+  lvbag:      { brand:'Louis Vuitton', name:'Sacoche LV',       detail:'Plusieurs modeles', tags:['Neuf'] },
+  goyard:     { isGoyard:true },
+  sacfemme:   { isSacFemme:true },
+  vetements:  { isVetements:true }
 };
+
+var SNEAKER_TABS = [
+  { key:'snk_omni9',     label:'Saucony Omni 9',  detail:'Pro Grid Omni 9 - Rose / Violet',     tags:['Pointure US 11.5 H','Pointure US 13 F','Neuf','Boite incluse'] },
+  { key:'snk_gelnyc',    label:'Asics NYC',        detail:'Gel NYC - Plusieurs coloris',          tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_kayano',    label:'Asics Kayano',     detail:'Gel-Kayano 14 - Argent / Rose',        tags:['Pointure US 8-9.5 F','Neuf','Boite incluse'] },
+  { key:'snk_cloudtilt', label:'On Cloudtilt',     detail:'On Cloudtilt - Noir / Ivoire',         tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_loewe',     label:'On Loewe',         detail:'On x Loewe - Edition speciale',        tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_salomon',   label:'Salomon',          detail:'Salomon - Plusieurs coloris',           tags:['Pointures disponibles','Neuf','Boite incluse'] },
+  { key:'snk_yeezy',     label:'Yeezy 700',        detail:'Adidas Yeezy 700 - Plusieurs coloris', tags:['Pointures disponibles','Neuf','Boite incluse'] }
+];
+
+var LUXE_TABS = [
+  { key:'lux_b22',      label:'Dior B22',    detail:'Dior B22 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
+  { key:'lux_b25',      label:'Dior B25',    detail:'Dior B25 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
+  { key:'lux_b30',      label:'Dior B30',    detail:'Dior B30 - Plusieurs coloris',     tags:['Neuf','Boite incluse'] },
+  { key:'lux_offw',     label:'Off-White',   detail:'Off-White - Edition limitee',      tags:['Neuf','Boite incluse'] },
+  { key:'lux_bouncing', label:'Bouncing',    detail:'Bouncing - Plusieurs coloris',     tags:['Neuf','Boite incluse'] }
+];
+
+var CLAQ_TABS = [
+  { key:'claq_mind',   label:'Mind',   detail:'Claquette Mind - Plusieurs coloris',   tags:['Neuf'] },
+  { key:'claq_oran',   label:'Oran',   detail:'Claquette Oran - Plusieurs coloris',   tags:['Neuf'] },
+  { key:'claq_chypre', label:'Chypre', detail:'Claquette Chypre - Plusieurs coloris', tags:['Neuf'] }
+];
+
 
 var GOYARD_TABS = [
   { key:'goyard_mess', label:'Messager',  detail:'Sac Messager - Noir Chevron',      tags:['Toile Goyardine','Neuf'] },
@@ -304,9 +359,12 @@ var currentIdx = {};
 var activeTab = {};
 
 function getTabsForId(id) {
-  if (id === 'goyard')    return GOYARD_TABS;
-  if (id === 'sacfemme')  return FEMME_TABS;
-  if (id === 'vetements') return VET_TABS;
+  if (id === 'sneakers')   return SNEAKER_TABS;
+  if (id === 'claquettes') return CLAQ_TABS;
+  if (id === 'luxe')       return LUXE_TABS;
+  if (id === 'goyard')     return GOYARD_TABS;
+  if (id === 'sacfemme')   return FEMME_TABS;
+  if (id === 'vetements')  return VET_TABS;
   return [];
 }
 
@@ -351,7 +409,7 @@ function buildModal(id) {
           '<div class="modal-name">' + item.name + '</div>' +
           '<div class="modal-detail">' + item.detail + '</div>' +
         '</div>' +
-        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">&#10005; Fermer</button>' +
+        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">✕ Fermer</button>' +
       '</div>' +
       buildMainHTML(id, arr, 0) +
       (arr.length > 1 ? '<div class="modal-thumbs-wrap"><div class="modal-thumbs" id="thumbs-' + id + '">' + buildThumbs(id, arr, 0) + '</div></div>' : '') +
@@ -374,7 +432,7 @@ function buildTabModal(id, tabs) {
   for (var j = 0; j < tab.tags.length; j++) {
     tagsHtml += '<span class="info-tag">' + tab.tags[j] + '</span>';
   }
-  var titles = { goyard:'Goyard', sacfemme:'Sacs Femme', vetements:'Vetements' };
+  var titles = { sneakers:'Sneakers', claquettes:'Claquettes', luxe:'Paires de Luxe', goyard:'Goyard', sacfemme:'Sacs Femme', vetements:'Vetements' };
   return '<div class="modal-overlay" id="overlay-' + id + '">' +
     '<div class="modal">' +
       '<div class="modal-header">' +
@@ -383,7 +441,7 @@ function buildTabModal(id, tabs) {
           '<div class="modal-name" id="tab-name-' + id + '">' + tab.label + '</div>' +
           '<div class="modal-detail" id="tab-detail-' + id + '">' + tab.detail + '</div>' +
         '</div>' +
-        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">&#10005; Fermer</button>' +
+        '<button class="modal-close" onclick="closeGallery(\'' + id + '\')">✕ Fermer</button>' +
       '</div>' +
       '<div class="brand-tabs" id="tab-bar-' + id + '">' + tabsHtml + '</div>' +
       '<div id="tab-main-' + id + '">' + buildMainHTML(id, arr, 0) + '</div>' +
@@ -396,12 +454,12 @@ function buildTabModal(id, tabs) {
 
 function buildMainHTML(id, arr, idx) {
   if (!arr || !arr.length) {
-    return '<div class="modal-empty"><div class="modal-empty-icon">&#128247;</div><div class="modal-empty-text">Photos bientot disponibles</div></div>';
+    return '<div class="modal-empty"><div class="modal-empty-icon">📷</div><div class="modal-empty-text">Photos bientot disponibles</div></div>';
   }
   return '<div class="main-img-wrap">' +
     '<img class="modal-main-img" id="main-' + id + '" src="' + arr[idx] + '" alt="Photo" onerror="this.style.opacity=\'0.1\'"/>' +
-    '<button class="nav-btn nav-prev' + (idx === 0 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',-1)">&#8249;</button>' +
-    '<button class="nav-btn nav-next' + (idx >= arr.length - 1 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',1)">&#8250;</button>' +
+    '<button class="nav-btn nav-prev' + (idx === 0 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',-1)">‹</button>' +
+    '<button class="nav-btn nav-next' + (idx >= arr.length - 1 ? ' hidden' : '') + '" onclick="navPhoto(\'' + id + '\',1)">›</button>' +
   '</div>';
 }
 
