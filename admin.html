@@ -77,6 +77,8 @@ body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .delete-demande-btn{flex:1;padding:9px;border-radius:8px;border:0.5px solid #e24b4a44;background:transparent;color:#e24b4a44;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
 .delete-demande-btn:hover{background:#e24b4a22;border-color:#e24b4a;color:#e24b4a;}
 .no-photo{font-size:10px;color:#333;letter-spacing:2px;padding:20px;text-align:center;background:#141414;border-radius:8px;margin-bottom:12px;}
+.item-thumb{width:36px;height:36px;border-radius:5px;object-fit:cover;background:#1a1a1a;flex-shrink:0;border:0.5px solid #2a2a2a;}
+.item-thumb-err{width:36px;height:36px;border-radius:5px;background:#1a1a1a;flex-shrink:0;border:0.5px solid #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:14px;}
 .order-body{display:none;padding:0 18px 18px;}
 .order-body.open{display:block;}
 .order-contact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
@@ -242,6 +244,54 @@ function updateStats() {
   document.getElementById('statCA').textContent = ca + 'EUR';
 }
 
+var BASE_PHOTOS = 'https://DoubleV21.github.io/rxluxury/';
+
+var PHOTO_MAP = {
+  'saucony omni 9': 'omni9-1.jpg', 'pro grid omni 9': 'omni9-1.jpg',
+  'asics nyc': 'asicsnyc-1.jpg', 'gel nyc': 'asicsnyc-1.jpg',
+  'asics kayano': 'asicskayano-1.jpg', 'gel-kayano': 'asicskayano-1.jpg',
+  'on cloudtilt': 'oncloudtilt-1.jpg', 'cloudtilt': 'oncloudtilt-1.jpg',
+  'on loewe': 'onloewe-1.jpg', 'loewe': 'onloewe-1.jpg',
+  'salomon': 'salomon-1.jpg',
+  'yeezy 700': 'yeezy700-1.jpg', 'yeezy': 'yeezy700-1.jpg',
+  'dior b22': 'b22-1.jpg', 'b22': 'b22-1.jpg',
+  'dior b25': 'b25-1.jpg', 'b25': 'b25-1.jpg',
+  'dior b30 stone': 'b30-8.jpg', 'b30 stone': 'b30-8.jpg',
+  'dior b30': 'b30-1.jpg', 'b30': 'b30-1.jpg',
+  'off-white': 'offw-1.jpg', 'off white': 'offw-1.jpg',
+  'bouncing': 'bouncing-1.jpg',
+  'mind': 'mind-1.jpg',
+  'oran': 'oran-1.jpg',
+  'chypre': 'chypre-1.jpg',
+  'goyard messager': 'goyardmessager-1.jpg', 'messager': 'goyardmessager-1.jpg',
+  'messager 120': 'goyardmessager-1.jpg', 'messager 130': 'goyardmessager-5.jpg',
+  'belvedere': 'goyardbelve-1.jpg', 'belv\u00e9d\u00e8re': 'goyardbelve-1.jpg',
+  'casquette': 'ggcap-1.jpg', 'collection caps': 'ggcap-1.jpg',
+  'sacoche dior': 'diorbag-1.jpg',
+  'sacoche gucci': 'guccibag-1.jpg',
+  'bouteille lv': 'lvbag-1.jpg',
+  'keepal lv': 'lvbag-2.jpg',
+  'coach': 'coachbaglady-1.jpg',
+  'chanel': 'channelbag-1.jpg',
+  'lv': 'lvbaglady-1.jpg',
+  'blcg': 'blcgshirt-1.jpg',
+  'c.p. company': 'cpshirt-1.jpg',
+  'dior': 'diorshirt-1.jpg',
+  'prada': 'prdshirt-1.jpg',
+  'stone island': 'sishirt-1.jpg',
+  'burberry': 'brbshirt-1.jpg',
+  'casablanca': 'casashirt-1.jpg',
+  'sweat zip': 'brbzip-1.jpg'
+};
+
+function getPhotoUrl(nom) {
+  var n = nom.toLowerCase().trim();
+  for (var key in PHOTO_MAP) {
+    if (n.includes(key)) return BASE_PHOTOS + PHOTO_MAP[key];
+  }
+  return null;
+}
+
 window.renderOrders = function() {
   var filtered = allOrders.filter(function(o) {
     if (currentFilter === 'all') return true;
@@ -260,7 +310,11 @@ window.renderOrders = function() {
     var isOpen = openCards[o._id];
 
     var itemsHtml = (o.articles||[]).map(function(a) {
-      return '<div class="order-item-row"><div><span class="item-name">'+a.nom+'</span><span class="item-size">'+a.taille+'</span></div><span class="item-price">'+a.prix+' EUR</span></div>';
+      var photoUrl = getPhotoUrl(a.nom);
+      var thumbHtml = photoUrl
+        ? '<img class="item-thumb" src="'+photoUrl+'" alt="" onerror="this.style.display=\'none\';this.nextSibling.style.display=\'flex\'"/><div class="item-thumb-err" style="display:none;">?</div>'
+        : '<div class="item-thumb-err">?</div>';
+      return '<div class="order-item-row"><div style="display:flex;align-items:center;gap:10px;">'+thumbHtml+'<div><span class="item-name">'+a.nom+'</span><span class="item-size">'+a.taille+'</span></div></div><span class="item-price">'+a.prix+' EUR</span></div>';
     }).join('');
 
     var pipeHtml = STATUTS.map(function(s) {
