@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RxLuxury — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;}
+.login-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-box{background:#111;border:0.5px solid #222;border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center;}
+.login-logo{font-size:32px;font-weight:900;color:#fff;margin-bottom:4px;}
+.login-logo span{color:#c8a96e;}
+.login-sub{font-size:10px;letter-spacing:5px;color:#444;text-transform:uppercase;margin-bottom:32px;}
+.login-input{width:100%;background:#1a1a1a;border:0.5px solid #2a2a2a;border-radius:8px;padding:12px 16px;color:#fff;font-size:14px;font-family:'Inter',sans-serif;margin-bottom:12px;outline:none;}
+.login-input:focus{border-color:#c8a96e;}
+.login-btn{width:100%;background:#c8a96e;color:#0a0a0a;border:none;border-radius:8px;padding:12px;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;}
+.login-error{color:#e24b4a;font-size:11px;margin-top:8px;}
+.admin-screen{display:none;padding:24px 20px;max-width:900px;margin:0 auto;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:0.5px solid #1a1a1a;}
+.admin-logo{font-size:22px;font-weight:900;}
+.admin-logo span{color:#c8a96e;}
+.admin-logout{background:transparent;border:0.5px solid #2a2a2a;color:#555;padding:7px 14px;border-radius:20px;cursor:pointer;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;}
+.admin-logout:hover{color:#c8a96e;border-color:#c8a96e;}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px;}
+.stat-card{background:#111;border:0.5px solid #1a1a1a;border-radius:10px;padding:14px 16px;}
+.stat-label{font-size:9px;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:6px;}
+.stat-value{font-size:24px;font-weight:700;color:#c8a96e;}
+.filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-btn{background:#111;border:0.5px solid #1a1a1a;color:#555;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.filter-btn:hover{border-color:#c8a96e;color:#c8a96e;}
+.filter-btn.active{background:#c8a96e;color:#0a0a0a;border-color:#c8a96e;}
+.order-card{background:#111;border:0.5px solid #1a1a1a;border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.order-card.status-new{border-left:3px solid #c8a96e;}
+.order-card.status-paye{border-left:3px solid #378add;}
+.order-card.status-envoye{border-left:3px solid #ba7517;}
+.order-card.status-receptionne{border-left:3px solid #1d9e75;}
+.order-card.status-annule{border-left:3px solid #e24b4a;opacity:0.6;}
+.order-top{padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;user-select:none;}
+.order-top:hover{background:#161616;}
+.order-num{font-size:12px;font-weight:700;color:#c8a96e;letter-spacing:1px;}
+.order-date{font-size:10px;color:#444;margin-top:2px;}
+.order-top-right{display:flex;align-items:center;gap:8px;}
+.order-summary-text{font-size:11px;color:#666;text-align:right;}
+.order-total-small{font-size:13px;font-weight:700;color:#fff;}
+.chevron{font-size:12px;color:#444;transition:transform 0.2s;display:inline-block;}
+.chevron.open{transform:rotate(180deg);}
+.status-badge{font-size:9px;font-weight:700;letter-spacing:2px;padding:3px 8px;border-radius:20px;text-transform:uppercase;white-space:nowrap;}
+.badge-new{background:#c8a96e22;color:#c8a96e;}
+.badge-paye{background:#378add22;color:#378add;}
+.badge-envoye{background:#ba751722;color:#ba7517;}
+.badge-receptionne{background:#1d9e7522;color:#1d9e75;}
+.badge-annule{background:#e24b4a22;color:#e24b4a;}
+.badge-traite{background:#1d9e7522;color:#1d9e75;}
+.nav-tabs{display:flex;gap:2px;background:#1a1a1a;border-radius:10px;padding:3px;margin-bottom:20px;}
+.nav-tab{flex:1;padding:9px 12px;text-align:center;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#444;background:transparent;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:8px;transition:all 0.2s;}
+.nav-tab:hover{color:#aaa;}
+.nav-tab.active{background:#0a0a0a;color:#c8a96e;}
+.demande-card{background:#111;border:0.5px solid #1a1a1a;border-left:3px solid #7f77dd;border-radius:12px;margin-bottom:10px;overflow:hidden;}
+.demande-card.status-traite{border-left:3px solid #1d9e75;opacity:0.7;}
+.demande-top{padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;cursor:pointer;user-select:none;}
+.demande-top:hover{background:#161616;}
+.demande-body{display:none;padding:0 18px 18px;}
+.demande-body.open{display:block;}
+.demande-photo{width:100%;max-height:220px;object-fit:contain;border-radius:8px;margin-bottom:12px;background:#141414;}
+.demande-desc{font-size:12px;color:#ccc;line-height:1.7;padding:10px 14px;background:#1a1a1a;border-radius:8px;margin-bottom:12px;}
+.demande-contact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
+.demande-actions{display:flex;gap:8px;}
+.mark-traite-btn{flex:1;padding:9px;border-radius:8px;border:0.5px solid #1d9e7544;background:transparent;color:#1d9e7544;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.mark-traite-btn:hover{background:#1d9e7522;border-color:#1d9e75;color:#1d9e75;}
+.mark-traite-btn.done{background:#1d9e7522;border-color:#1d9e75;color:#1d9e75;}
+.delete-demande-btn{flex:1;padding:9px;border-radius:8px;border:0.5px solid #e24b4a44;background:transparent;color:#e24b4a44;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.delete-demande-btn:hover{background:#e24b4a22;border-color:#e24b4a;color:#e24b4a;}
+.no-photo{font-size:10px;color:#333;letter-spacing:2px;padding:20px;text-align:center;background:#141414;border-radius:8px;margin-bottom:12px;}
+
+/* ITEM ROW AVEC PHOTO */
+.item-row{display:flex;align-items:flex-start;gap:12px;padding:10px 12px;background:#0f0f0f;border-radius:8px;margin-bottom:6px;border:0.5px solid #1a1a1a;}
+.item-photo-wrap{position:relative;flex-shrink:0;}
+.item-photo{width:64px;height:64px;border-radius:8px;object-fit:cover;border:0.5px solid #2a2a2a;background:#141414;display:block;}
+.item-photo-placeholder{width:64px;height:64px;border-radius:8px;border:0.5px solid #2a2a2a;background:#141414;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.item-info{flex:1;}
+.item-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:2px;}
+.item-taille{font-size:11px;color:#c8a96e;background:#c8a96e11;border:0.5px solid #c8a96e33;border-radius:10px;padding:2px 8px;display:inline-block;margin-bottom:4px;}
+.item-price{font-size:13px;font-weight:700;color:#c8a96e;flex-shrink:0;}
+
+.order-body{display:none;padding:0 18px 18px;}
+.order-body.open{display:block;}
+.order-contact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:10px 14px;background:#1a1a1a;border-radius:8px;}
+.contact-chip{font-size:11px;color:#888;}
+.contact-chip span{color:#fff;font-weight:600;}
+.order-address{font-size:11px;color:#555;padding:8px 12px;background:#141414;border-radius:6px;line-height:1.7;margin-bottom:14px;}
+.pipeline-label{font-size:9px;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:8px;}
+.pipeline{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.pipe-btn{flex:1;min-width:70px;padding:8px 4px;border-radius:8px;border:0.5px solid #2a2a2a;background:#141414;color:#555;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;text-align:center;transition:all 0.2s;}
+.pipe-btn:hover{border-color:#c8a96e;color:#c8a96e;}
+.pipe-btn.active-new{background:#c8a96e22;border-color:#c8a96e;color:#c8a96e;}
+.pipe-btn.active-paye{background:#378add22;border-color:#378add;color:#378add;}
+.pipe-btn.active-envoye{background:#ba751722;border-color:#ba7517;color:#ba7517;}
+.pipe-btn.active-receptionne{background:#1d9e7522;border-color:#1d9e75;color:#1d9e75;}
+.pipe-btn.active-annule{background:#e24b4a22;border-color:#e24b4a;color:#e24b4a;}
+.order-total-bar{display:flex;justify-content:space-between;padding:10px 0;border-top:0.5px solid #2a2a2a;margin-bottom:12px;}
+.total-label{font-size:10px;color:#444;letter-spacing:3px;text-transform:uppercase;}
+.total-value{font-size:16px;font-weight:700;color:#c8a96e;}
+.delete-btn{width:100%;padding:8px;border-radius:8px;border:0.5px solid #e24b4a44;background:transparent;color:#e24b4a44;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.delete-btn:hover{background:#e24b4a22;border-color:#e24b4a;color:#e24b4a;}
+.no-orders{text-align:center;padding:60px 20px;color:#2a2a2a;font-size:13px;letter-spacing:3px;}
+.refresh-btn{background:transparent;border:0.5px solid #2a2a2a;color:#555;padding:7px 16px;border-radius:20px;cursor:pointer;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:'Inter',sans-serif;margin-bottom:14px;}
+.refresh-btn:hover{border-color:#c8a96e;color:#c8a96e;}
+.items-label{font-size:9px;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:8px;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Rx<span>Luxury</span></div>
+    <div class="login-sub">Espace Admin</div>
+    <input class="login-input" type="password" id="pwdInput" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')checkLogin()"/>
+    <button class="login-btn" onclick="checkLogin()">Connexion</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<div class="admin-screen" id="adminScreen">
+  <div class="admin-header">
+    <div class="admin-logo">Rx<span>Luxury</span> &mdash; Commandes</div>
+    <button class="admin-logout" onclick="logout()">Déconnexion</button>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value" id="statTotal">0</div></div>
+    <div class="stat-card"><div class="stat-label">Nouvelles</div><div class="stat-value" id="statNew" style="color:#c8a96e;">0</div></div>
+    <div class="stat-card"><div class="stat-label">En cours</div><div class="stat-value" id="statEnCours" style="color:#378add;">0</div></div>
+    <div class="stat-card"><div class="stat-label">Chiffre</div><div class="stat-value" id="statCA">0€</div></div>
+  </div>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchSection('commandes',this)">Commandes</button>
+    <button class="nav-tab" onclick="switchSection('demandes',this)">Demandes perso</button>
+  </div>
+
+  <div id="sectionCommandes">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('all',this)">Toutes</button>
+      <button class="filter-btn" onclick="setFilter('new',this)">Nouvelles</button>
+      <button class="filter-btn" onclick="setFilter('paye',this)">Payées</button>
+      <button class="filter-btn" onclick="setFilter('envoye',this)">Envoyées</button>
+      <button class="filter-btn" onclick="setFilter('receptionne',this)">Reçues</button>
+      <button class="filter-btn" onclick="setFilter('annule',this)">Annulées</button>
+    </div>
+    <button class="refresh-btn" onclick="renderOrders()">↻ Actualiser</button>
+    <div id="ordersList"><div class="no-orders">Chargement...</div></div>
+  </div>
+
+  <div id="sectionDemandes" style="display:none;">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setDemandeFilter('all',this)">Toutes</button>
+      <button class="filter-btn" onclick="setDemandeFilter('new',this)">Non traitées</button>
+      <button class="filter-btn" onclick="setDemandeFilter('traite',this)">Traitées</button>
+    </div>
+    <button class="refresh-btn" onclick="renderDemandes()">↻ Actualiser</button>
+    <div id="demandesList"><div class="no-orders">Chargement...</div></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getDatabase, ref, onValue, update, remove } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCQKTxZIavC-29TGIfR7v9Sg4Knlz6oawM",
+  authDomain: "rxluxury-fbebb.firebaseapp.com",
+  databaseURL: "https://rxluxury-fbebb-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "rxluxury-fbebb",
+  storageBucket: "rxluxury-fbebb.firebasestorage.app",
+  messagingSenderId: "99568726381",
+  appId: "1:99568726381:web:e089448b450bddf108aa64"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const ADMIN_PWD = 'rxluxury2024';
+
+var allOrders = [];
+var allDemandes = [];
+var currentFilter = 'all';
+var currentDemandeFilter = 'all';
+var openCards = {};
+var openDemandes = {};
+
+const BASE = 'https://rxluxury.github.io/rxluxury/';
+
+// Mapping complet nom article -> première photo
+const PHOTO_MAP = [
+  { keys:['omni','saucony'],           img:'omni9-1.jpg' },
+  { keys:['asics nyc','gel nyc','nyc'],img:'asicsnyc-1.jpg' },
+  { keys:['kayano'],                   img:'asicskayano-1.jpg' },
+  { keys:['cloudtilt'],                img:'oncloudtilt-1.jpg' },
+  { keys:['loewe'],                    img:'onloewe-1.jpg' },
+  { keys:['salomon'],                  img:'salomon-1.jpg' },
+  { keys:['yeezy'],                    img:'yeezy700-1.jpg' },
+  { keys:['b22'],                      img:'b22-1.jpg' },
+  { keys:['b25'],                      img:'b25-1.jpg' },
+  { keys:['b30 stone','stone'],        img:'b30-8.jpg' },
+  { keys:['b30'],                      img:'b30-1.jpg' },
+  { keys:['off-white','off white','offw'], img:'offw-1.jpg' },
+  { keys:['bouncing'],                 img:'bouncing-1.jpg' },
+  { keys:['mind'],                     img:'mind-1.jpg' },
+  { keys:['oran'],                     img:'oran-1.jpg' },
+  { keys:['chypre'],                   img:'chypre-1.jpg' },
+  { keys:['messager 130'],             img:'goyardmessager-5.jpg' },
+  { keys:['messager'],                 img:'goyardmessager-1.jpg' },
+  { keys:['belv'],                     img:'goyardbelve-1.jpg' },
+  { keys:['cap','casquette'],          img:'ggcap-1.jpg' },
+  { keys:['sacoche dior','diorbag'],   img:'diorbag-1.jpg' },
+  { keys:['sacoche gucci','gucci'],    img:'guccibag-1.jpg' },
+  { keys:['bouteille'],                img:'lvbag-1.jpg' },
+  { keys:['keepal'],                   img:'lvbag-2.jpg' },
+  { keys:['coach'],                    img:'coachbaglady-1.jpg' },
+  { keys:['chanel'],                   img:'channelbag-1.jpg' },
+  { keys:['lv lady','sac lv'],         img:'lvbaglady-1.jpg' },
+  { keys:['blcg','balenciaga'],        img:'blcgshirt-1.jpg' },
+  { keys:['c.p.','cp company'],        img:'cpshirt-1.jpg' },
+  { keys:['zip','sweat'],              img:'brbzip-1.jpg' },
+  { keys:['burberry'],                 img:'brbshirt-1.jpg' },
+  { keys:['stone island'],             img:'sishirt-1.jpg' },
+  { keys:['casablanca'],               img:'casashirt-1.jpg' },
+  { keys:['prada'],                    img:'prdshirt-1.jpg' },
+  { keys:['dior shirt','t-shirt dior'],img:'diorshirt-1.jpg' },
+  { keys:['lv shirt','t-shirt lv'],    img:'lvshirt-1.jpg' },
+  { keys:['dior'],                     img:'diorshirt-1.jpg' },
+  { keys:['lv'],                       img:'lvshirt-1.jpg' },
+];
+
+function getPhoto(nom) {
+  if(!nom) return null;
+  var n = nom.toLowerCase();
+  for(var i=0;i<PHOTO_MAP.length;i++){
+    for(var j=0;j<PHOTO_MAP[i].keys.length;j++){
+      if(n.includes(PHOTO_MAP[i].keys[j])) return BASE + PHOTO_MAP[i].img;
+    }
+  }
+  return null;
+}
+
+function buildItemRow(a) {
+  var nom = a.nom || a.name || '';
+  var taille = a.taille || a.size || '';
+  var prix = a.prix || a.price || '';
+  var photo = getPhoto(nom);
+  var photoHtml = photo
+    ? '<img class="item-photo" src="'+photo+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><div class="item-photo-placeholder" style="display:none;">📦</div>'
+    : '<div class="item-photo-placeholder">📦</div>';
+  return '<div class="item-row">'+
+    '<div class="item-photo-wrap">'+photoHtml+'</div>'+
+    '<div class="item-info">'+
+      '<div class="item-name">'+nom+'</div>'+
+      (taille?'<div class="item-taille">'+taille+'</div>':'')+
+    '</div>'+
+    '<div class="item-price">'+prix+' EUR</div>'+
+  '</div>';
+}
+
+window.switchSection = function(section, btn) {
+  document.querySelectorAll('.nav-tab').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('sectionCommandes').style.display = section==='commandes'?'block':'none';
+  document.getElementById('sectionDemandes').style.display = section==='demandes'?'block':'none';
+};
+
+window.checkLogin = function() {
+  if(document.getElementById('pwdInput').value === ADMIN_PWD){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('adminScreen').style.display='block';
+    startListening();
+  } else {
+    document.getElementById('loginError').textContent='Mot de passe incorrect';
+  }
+};
+
+window.logout = function() {
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('adminScreen').style.display='none';
+  document.getElementById('pwdInput').value='';
+};
+
+function startListening() {
+  onValue(ref(db,'commandes'), function(snapshot){
+    var data = snapshot.val()||{};
+    allOrders = Object.entries(data).map(function(e){ return Object.assign({_id:e[0]},e[1]); })
+      .sort(function(a,b){return b.timestamp-a.timestamp;});
+    updateStats(); renderOrders();
+  });
+  onValue(ref(db,'demandes'), function(snapshot){
+    var data = snapshot.val()||{};
+    allDemandes = Object.entries(data).map(function(e){ return Object.assign({_id:e[0]},e[1]); })
+      .sort(function(a,b){return b.timestamp-a.timestamp;});
+    renderDemandes();
+  });
+}
+
+function updateStats() {
+  var total=allOrders.length;
+  var newCount=allOrders.filter(function(o){return !o.statut||o.statut==='new';}).length;
+  var enCours=allOrders.filter(function(o){return o.statut==='paye'||o.statut==='envoye';}).length;
+  var ca=allOrders.filter(function(o){return o.statut!=='annule';}).reduce(function(s,o){return s+(o.total||0);},0);
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('statNew').textContent=newCount;
+  document.getElementById('statEnCours').textContent=enCours;
+  document.getElementById('statCA').textContent=ca+'€';
+}
+
+window.renderOrders = function() {
+  var filtered = allOrders.filter(function(o){
+    if(currentFilter==='all') return true;
+    if(currentFilter==='new') return !o.statut||o.statut==='new';
+    return o.statut===currentFilter;
+  });
+  var list = document.getElementById('ordersList');
+  if(!filtered.length){list.innerHTML='<div class="no-orders">Aucune commande</div>';return;}
+
+  var LABELS={new:'Nouvelle',paye:'Payée',envoye:'Envoyée',receptionne:'Reçue',annule:'Annulée'};
+  var STATUTS=['new','paye','envoye','receptionne','annule'];
+
+  list.innerHTML = filtered.map(function(o){
+    var statut=o.statut||'new';
+    var date=o.timestamp?new Date(o.timestamp).toLocaleString('fr-FR'):'';
+    var isOpen=openCards[o._id];
+    var itemsHtml=(o.articles||[]).map(function(a){return buildItemRow(a);}).join('');
+    var pipeHtml=STATUTS.map(function(s){
+      var ac=statut===s?' active-'+s:'';
+      return '<button class="pipe-btn'+ac+'" onclick="setStatus(\''+o._id+'\',\''+s+'\')">'+LABELS[s]+'</button>';
+    }).join('');
+
+    return '<div class="order-card status-'+statut+'" id="card-'+o._id+'">'+
+      '<div class="order-top" onclick="toggleCard(\''+o._id+'\')">'+
+        '<div><div class="order-num">#'+o.numero+'</div><div class="order-date">'+date+'</div></div>'+
+        '<div class="order-top-right">'+
+          '<div class="order-summary-text"><div class="order-total-small">'+(o.total||0)+' EUR</div><div>'+(o.snap||'')+'</div></div>'+
+          '<span class="status-badge badge-'+statut+'">'+LABELS[statut]+'</span>'+
+          '<span class="chevron'+(isOpen?' open':'')+'">&#9660;</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="order-body'+(isOpen?' open':'')+'" id="body-'+o._id+'">'+
+        '<div class="order-contact">'+
+          '<div class="contact-chip">Snap: <span>'+(o.snap||'-')+'</span></div>'+
+          '<div class="contact-chip">Tél: <span>'+(o.telephone||'-')+'</span></div>'+
+        '</div>'+
+        '<div class="items-label">Articles commandés</div>'+
+        '<div>'+itemsHtml+'</div>'+
+        '<div class="order-address" style="margin-top:8px;">'+(o.adresse||'-')+' — '+(o.ville||'-')+' '+(o.codePostal||'-')+'</div>'+
+        '<div class="pipeline-label">Statut de la commande</div>'+
+        '<div class="pipeline">'+pipeHtml+'</div>'+
+        '<div class="order-total-bar"><div class="total-label">Total</div><div class="total-value">'+(o.total||0)+' EUR</div></div>'+
+        '<button class="delete-btn" onclick="deleteOrder(\''+o._id+'\',\''+o.numero+'\')">🗑 Supprimer la commande</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+};
+
+window.toggleCard = function(id){
+  openCards[id]=!openCards[id];
+  var body=document.getElementById('body-'+id);
+  var chev=document.querySelector('#card-'+id+' .chevron');
+  if(body) body.classList.toggle('open',!!openCards[id]);
+  if(chev) chev.classList.toggle('open',!!openCards[id]);
+};
+
+window.setStatus = function(id,statut){
+  update(ref(db,'commandes/'+id),{statut:statut});
+};
+
+window.deleteOrder = function(id,num){
+  if(confirm('Supprimer la commande #'+num+' ?')) remove(ref(db,'commandes/'+id));
+};
+
+window.setFilter = function(filter,btn){
+  currentFilter=filter;
+  document.querySelectorAll('#sectionCommandes .filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderOrders();
+};
+
+window.setDemandeFilter = function(filter,btn){
+  currentDemandeFilter=filter;
+  document.querySelectorAll('#sectionDemandes .filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderDemandes();
+};
+
+window.renderDemandes = function(){
+  var filtered=allDemandes.filter(function(d){
+    if(currentDemandeFilter==='all') return true;
+    if(currentDemandeFilter==='new') return !d.statut||d.statut==='new';
+    return d.statut===currentDemandeFilter;
+  });
+  var list=document.getElementById('demandesList');
+  if(!filtered.length){list.innerHTML='<div class="no-orders">Aucune demande</div>';return;}
+  list.innerHTML=filtered.map(function(d){
+    var isTraite=d.statut==='traite';
+    var isOpen=openDemandes[d._id];
+    var date=d.timestamp?new Date(d.timestamp).toLocaleString('fr-FR'):'';
+    var photoHtml=d.photo?'<img class="demande-photo" src="'+d.photo+'" alt="photo article"/>':'<div class="no-photo">Aucune photo fournie</div>';
+    return '<div class="demande-card'+(isTraite?' status-traite':'')+'" id="dem-'+d._id+'">'+
+      '<div class="demande-top" onclick="toggleDemande(\''+d._id+'\')">'+
+        '<div><div class="order-num">#'+d.numero+'</div><div class="order-date">'+date+'</div></div>'+
+        '<div class="order-top-right">'+
+          '<div class="order-summary-text"><div style="font-size:11px;color:#ccc;">'+(d.snap||'')+'</div></div>'+
+          '<span class="status-badge '+(isTraite?'badge-traite':'badge-new')+'">'+(isTraite?'Traitée':'Nouvelle')+'</span>'+
+          '<span class="chevron'+(isOpen?' open':'')+'">&#9660;</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="demande-body'+(isOpen?' open':'')+'" id="dbody-'+d._id+'">'+
+        photoHtml+
+        '<div class="demande-desc">'+(d.description||'-')+'</div>'+
+        '<div class="demande-contact">'+
+          '<div class="contact-chip">Snap: <span>'+(d.snap||'-')+'</span></div>'+
+          '<div class="contact-chip">Tél: <span>'+(d.telephone||'-')+'</span></div>'+
+        '</div>'+
+        '<div class="demande-actions">'+
+          '<button class="mark-traite-btn'+(isTraite?' done':'')+'" onclick="markDemandeTraitee(\''+d._id+'\')">'+(isTraite?'✓ Traitée':'Marquer traitée')+'</button>'+
+          '<button class="delete-demande-btn" onclick="deleteDemande(\''+d._id+'\',\''+d.numero+'\')">🗑 Supprimer</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+};
+
+window.toggleDemande=function(id){
+  openDemandes[id]=!openDemandes[id];
+  var body=document.getElementById('dbody-'+id);
+  var chev=document.querySelector('#dem-'+id+' .chevron');
+  if(body) body.classList.toggle('open',!!openDemandes[id]);
+  if(chev) chev.classList.toggle('open',!!openDemandes[id]);
+};
+
+window.markDemandeTraitee=function(id){
+  update(ref(db,'demandes/'+id),{statut:'traite'});
+};
+
+window.deleteDemande=function(id,num){
+  if(confirm('Supprimer la demande #'+num+' ?')) remove(ref(db,'demandes/'+id));
+};
+</script>
+</body>
+</html>
